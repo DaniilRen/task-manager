@@ -20,7 +20,7 @@ java -version
 На Linux: нажимаем сочетание `ctrl` + `alt` + `t`
 4. Перейти в папку с программой сервера
 На Linux: пишем в терминале `cd ~/<путь до проекта>/remote_todo_code/server/task_sheduler`  
-5. Запустить сервер командой: `java -jar target/task_sheduler-1.0-SNAPSHOT.jar`
+5. Запустить сервер командой: `java -jar target/task_sheduler-1.0-SNAPSHOT.jar`  
 Терминал должен оставаться запущенным, база данных сохраняется при следующих запусках
 
 ## Для запуска клиентской части требуется:
@@ -33,7 +33,7 @@ java -version
 На Linux: нажимаем сочетание `ctrl` + `alt` + `t`
 4. Перейти в папку с программой клиента
 На Linux: пишем в терминале `cd ~/<путь до проекта>/remote_todo_code/client`    
-5. Установить виртуальное окружение python
+5. Установить виртуальное окружение python  
 На Windows:
 ```bash
 python -m venv venv

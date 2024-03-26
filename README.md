@@ -14,7 +14,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install openjdk-17-jdk openjdk-17-jre
 java -version
 ```
-2. Распаковать архив с программой.
+2. аспаковать архив с программой.
 3. Запустить терминал
 На Windows: нажимаем сочетание `win` + `r` ; пишем в открышемся окне `cmd`
 На Linux: нажимаем сочетание `ctrl` + `alt` + `t`
@@ -23,7 +23,7 @@ java -version
 d: // если папка проекта на диске D
 cd <путь до проекта>/remote_todo_code/server/task_sheduler
 ```
- На Linux: пишем в терминале `cd ~/<путь до проекта>/remote_todo_code/server/task_sheduler`    
+На Linux: пишем в терминале `cd ~/<путь до проекта>/remote_todo_code/server/task_sheduler`  
 5. Запустить сервер командой: `java -jar target/task_sheduler-1.0-SNAPSHOT.jar`
 Терминал должен оставаться запущенным, база данных сохраняется при следующих запусках
 

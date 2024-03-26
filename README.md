@@ -34,11 +34,6 @@ java -version
 4. Перейти в папку с программой клиента
 На Linux: пишем в терминале `cd ~/<путь до проекта>/remote_todo_code/client`    
 5. Установить виртуальное окружение python  
-На Windows:
-```bash
-python -m venv venv
-./venv/Scripts/activate
-```
 На Linux:
 ```bash
 sudo apt install python3-venv

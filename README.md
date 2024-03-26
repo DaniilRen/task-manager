@@ -14,7 +14,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install openjdk-17-jdk openjdk-17-jre
 java -version
 ```
-2. аспаковать архив с программой.
+2. Распаковать архив с программой.
 3. Запустить терминал
 На Windows: нажимаем сочетание `win` + `r` ; пишем в открышемся окне `cmd`
 На Linux: нажимаем сочетание `ctrl` + `alt` + `t`

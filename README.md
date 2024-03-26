@@ -19,11 +19,11 @@ java -version
 На Windows: нажимаем сочетание `win` + `r` ; пишем в открышемся окне `cmd`
 На Linux: нажимаем сочетание `ctrl` + `alt` + `t`
 4. Перейти в папку с программой сервера
-    ```bash
-    d: // если папка проекта на диске D
-    cd <путь до проекта>/remote_todo_code/server/task_sheduler
-    ```
-На Linux: пишем в терминале `cd ~/<путь до проекта>/remote_todo_code/server/task_sheduler`    
+```bash
+d: // если папка проекта на диске D
+cd <путь до проекта>/remote_todo_code/server/task_sheduler
+```
+ На Linux: пишем в терминале `cd ~/<путь до проекта>/remote_todo_code/server/task_sheduler`    
 5. Запустить сервер командой: `java -jar target/task_sheduler-1.0-SNAPSHOT.jar`
 Терминал должен оставаться запущенным, база данных сохраняется при следующих запусках
 
@@ -41,19 +41,19 @@ java -version
 d: // если папка проекта на диске D
 cd <путь до проекта>/remote_todo_code/client
 ```
-На Linux: пишем в терминале `cd ~/<путь до проекта>/remote_todo_code/server/task_sheduler`    
+ На Linux: пишем в терминале `cd ~/<путь до проекта>/remote_todo_code/server/task_sheduler`    
 5. Установить виртуальное окружение python
 На Windows:
-    ```bash
-    python -m venv venv
-    ./venv/Scripts/activate
-    ```
+```bash
+python -m venv venv
+./venv/Scripts/activate
+```
 На Linux:
-    ```bash
-    sudo apt install python3-venv
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
+```bash
+sudo apt install python3-venv
+python3 -m venv venv
+source venv/bin/activate
+```
 6. Установить все зависимости командой 'pip install -r requirements.txt'.
 8. В файле конфигурации config.json в папке программы задать в параметре url адрес и порт сервера.
 8. Для запуска программы клиента в режиме администратора выполнить 'python client.py'.

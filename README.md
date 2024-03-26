@@ -41,7 +41,7 @@ cd <путь до проекта>/remote_todo_code/server/task_sheduler
 d: // если папка проекта на диске D
 cd <путь до проекта>/remote_todo_code/client
 ```
-На Linux: пишем в терминале `cd ~/<путь до проекта>/remote_todo_code/server/task_sheduler`  
+На Linux: пишем в терминале `cd ~/<путь до проекта>/remote_todo_code/server/task_sheduler`
 5. Установить виртуальное окружение python
 На Windows:
 ```bash

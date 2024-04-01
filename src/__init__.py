@@ -1,7 +1,5 @@
 from flask import Flask, redirect, url_for
-import manager
-import auth
-import db
+from . import manager, auth, db
 import os
 
 
@@ -10,7 +8,7 @@ def create_app():
 	
 	app.config.from_mapping(
 		SECRET_KEY=os.urandom(24),
-		DATABASE=os.path.join(app.instance_path, "data.db")
+		DATABASE=os.path.join(os.getcwd(), "src/data.sqlite")
 		)
 
 	app.register_blueprint(auth.bp)
@@ -19,6 +17,5 @@ def create_app():
 	app.add_url_rule("/", endpoint="login")
 
 	db.init_app(app)
-	# db.init_db()
 
 	return app

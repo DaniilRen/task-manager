@@ -2,9 +2,9 @@ from flask import url_for, render_template, redirect, flash
 from flask import Blueprint, g, session, request
 from werkzeug.security import check_password_hash, generate_password_hash
 import functools
-from db import *
+from .db import *
 
-bp = Blueprint('auth', __name__, url_prefix="/auth")
+bp = Blueprint('auth', __name__)
 
 
 def register():

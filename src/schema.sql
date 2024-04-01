@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS user (
 	surname TEXT UNIQUE NOT NULL,
 	username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
-	is_admin = BOOLEAN
+	is_admin BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS task (

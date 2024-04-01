@@ -1,7 +1,6 @@
 from flask import render_template, g, Blueprint
 from peewee import *
-import auth
-import db
+from . import auth, db
 
 bp = Blueprint('manager', __name__)
 

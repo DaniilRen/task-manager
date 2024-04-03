@@ -14,7 +14,7 @@ def create_app():
 	app.register_blueprint(auth.bp)
 	app.register_blueprint(manager.bp)
 
-	app.add_url_rule("/", endpoint="login")
+	app.add_url_rule("/", endpoint="index")
 
 	db.init_app(app)
 

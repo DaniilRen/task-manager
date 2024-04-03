@@ -1,7 +1,7 @@
 from flask import g, current_app
 import sqlite3
 import click
-import os
+from werkzeug.security import generate_password_hash
 
 def get_db():
 	if "db" not in g:
@@ -18,6 +18,111 @@ def close_db(e=None):
 			db.close()
 
 
+def get_user_by_name(username):
+	db = get_db()
+	user = db.execute(
+            "SELECT * FROM users WHERE username = ?", (username,)
+        ).fetchone()
+	return user
+
+
+def get_user_by_id(user_id):
+	db = get_db()
+	user = db.execute(
+            "SELECT * FROM users WHERE id = ?", (user_id,)
+        ).fetchone()
+	return user
+
+
+
+def get_all_tasks():
+	db = get_db()
+	tasks = db.execute(
+		"SELECT id, author, title, body, created"
+		" FROM tasks ORDER BY created DESC"
+	).fetchall()
+	return tasks
+
+
+def add_new_user(fstn, secn, surn, login, psw, is_admin):
+	db = get_db()
+	error = None
+	missing = {fstn: 'Имя',
+						secn: 'Фамилия',
+						surn: 'Отчество',
+						login: 'Логин для входа',
+						psw: 'Пароль для входа'}
+
+	for i in missing:
+		if not i:
+			error = f'Укажите {missing[i]}'
+			break
+
+	if error is None:
+			try:
+					hashed_psw = generate_password_hash(psw)
+					db.execute("INSERT INTO users"
+						"(first_name, second_name, surname, username, password, is_admin)"
+						"VALUES (?, ?, ?, ?, ?, ?)",
+						(fstn, secn, surn, login, hashed_psw, is_admin)
+						)
+					db.commit()
+			except db.IntegrityError:
+					error = f"Имя пользователя '{login}' уже занято"
+			
+	if not error is None:
+		return {'success': False,
+					 'error': error}
+	return {'success': True}
+
+
+def add_default_admin():
+	resp = add_new_user('admin', 'admin', 'admin', 'admin', 'admin', True)
+	if resp['success']:
+		print('Added default admin account')
+	else:
+		print(f"Error while adding default admin account: {resp['error']}")
+
+
+def add_new_task(author, title, body):
+	db = get_db()
+	error = None
+	missing = {author: 'автора',
+						title: 'заголовок',
+						body: 'описание'}
+
+	for i in missing:
+		if not i:
+			error = f'Укажите {missing[i]} задачи'
+			break
+
+	if error is None:
+			try:
+					db.execute("INSERT INTO tasks"
+						"(author, title, body)"
+						"VALUES (?, ?, ?)",
+						(author, title, body)
+						)
+					db.commit()
+			except db.IntegrityError:
+					error = f"Данная задача уже назначена"
+			
+	if not error is None:
+		return {'success': False,
+					 'error': error}
+	return {'success': True}
+
+
+def add_default_tasks():
+	tasks = [('daniil', 'task1', 'body1'), ('daniil', 'task2', 'body2'), ('daniil', 'task3', 'body3')]
+	for task in tasks:
+		resp = add_new_task(*task)
+		if resp['success']:
+			print(f'Added task {task[1]}')
+		else:
+			print(f"Error while adding task {task[1]}: {resp['error']}")
+
+
 def init_db():
 	db = get_db()
 	with current_app.open_resource("schema.sql") as f:
@@ -26,28 +131,12 @@ def init_db():
 
 @click.command("init-db")
 def init_db_command():
-    init_db()
-    click.echo("Initialized the database.")
+	init_db()
+	add_default_admin()
+	add_default_tasks()
+	click.echo("Initialized the database.")
 
 
 def init_app(app):
 	app.teardown_appcontext(close_db)
 	app.cli.add_command(init_db_command)
-
-
-def get_user(username):
-	db = get_db()
-	user = db.execute(
-            "SELECT * FROM user WHERE username = ?", (username,)
-        ).fetchone()
-	return user
-
-
-def get_all_users():
-	db = get_db()
-	users = db.execute(
-		"SELECT p.id, title, body, created, author_id, username"
-		" FROM post p JOIN user u ON p.author_id = u.id"
-		" ORDER BY created DESC"
-	).fetchall()
-	return users

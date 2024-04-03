@@ -102,7 +102,7 @@ python3 admin.py
 
 * Необходимо выбрать в списке в нижней части экрана версию `JDK 17` и загрузить установщик `x64 MSI Installer`
 
-![image](./manuals/illustrations/java_dwnd.png)
+![image](/manuals/illustrations/java_dwnd.png)
 
 * Запустить загрузчик, нажать `Install`
 
@@ -111,31 +111,31 @@ python3 admin.py
 * В строке поиска Windows найти "Изменение переменных среды"
 * Нажмите `Переменные среды`
 
-![image](./manuals/illustrations/vars1.png)
+![image](/manuals/illustrations/vars1.png)
 
 * В разделе `Системные переменные` нажмите `Создать`.
 
-![image](./manuals/illustrations/vars2.png)
+![image](/manuals/illustrations/vars2.png)
 
 * Скопируйте путь до папки `Java\jdk-17\bin` из проводника, пройдя по пути: диск C -> Program Files или Program Files (x86) -> Java -> jdk-17 -> bin, затем нажав правой кнопкой мыши на папку в меню навигации и выбрав `скопировать путь как текст`
 
-![image](./manuals/illustrations/copy_path.png)
+![image](/manuals/illustrations/copy_path.png)
 
 * В окне создания системной переменной укажите имя переменной `JAVA_HOME`, в значении укажите только что скопированный путь
 
-![image](./manuals/illustrations/vars3.png)
+![image](/manuals/illustrations/vars3.png)
 
 * Выберите переменную Path и нажмите `Изменить`
 
-![image](./manuals/illustrations/vars4.png)
+![image](/manuals/illustrations/vars4.png)
 
 * Нажмите `Создать`
 
-![image](./manuals/illustrations/vars5.png)
+![image](/manuals/illustrations/vars5.png)
 
 * Укажите значение " %JAVA_HOME% "
 
-![image](./manuals/illustrations/vars6.png)
+![image](/manuals/illustrations/vars6.png)
 
 * Нажмите `OK`. Закройте остальные открытые окна, нажимая `OK`
 
@@ -144,7 +144,7 @@ python3 admin.py
 3. Запустить терминал: нажимаем сочетание `Win` + `r` и в открывшемся окошке пишем `cmd`, нажимаем `Enter` 
 4. Перейти в папку с программой сервера. Нужно скопировать путь к папке аналогично тому, как это делалось при установке Java:
 
-![image](./manuals/illustrations/server_path.png)
+![image](/manuals/illustrations/server_path.png)
 
 Затем пишем в терминале команды и после каждой нажимаем `Enter`:
 
@@ -167,15 +167,15 @@ java -jar target/task_sheduler-1.0-SNAPSHOT.jar
 2. Запустить терминал: нажимаем сочетание `Win` + `r` и в открывшемся окошке пишем `cmd`, нажимаем `Enter` 
 3. Листаем вниз сайта и скачиваем Windows installer (64-bit)
 
-![image](./manuals/illustrations/python1.png)
+![image](/manuals/illustrations/python1.png)
 
 4. При установке отмечаем все галочки и нажимаем `Install Now`
 
-![image](./manuals/illustrations/python2.png)
+![image](/manuals/illustrations/python2.png)
 
 4. Перейти в папку с программой клиента. Нужно скопировать путь к папке:
 
-![image](./manuals/illustrations/taskm_path.png)
+![image](/manuals/illustrations/taskm_path.png)
 
 Затем пишем в терминале команды и после каждой нажимаем `Enter`:  
 

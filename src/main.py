@@ -1,6 +1,6 @@
-import app, db
+import __init__, db
 
-app = app.create_app()
+app = __init__.create_app()
 db.init_db()
 
 if __name__ == "__main__":

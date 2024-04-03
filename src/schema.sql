@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  first_name TEXT UNIQUE NOT NULL,
-	second_name TEXT UNIQUE NOT NULL,
-	surname TEXT UNIQUE NOT NULL,
+  first_name TEXT NOT NULL,
+	second_name TEXT NOT NULL,
+	surname TEXT NOT NULL,
 	username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
 	is_admin BOOLEAN

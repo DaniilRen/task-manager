@@ -21,7 +21,7 @@ def close_db(e=None):
 def get_user_by_name(username):
 	db = get_db()
 	user = db.execute(
-            "SELECT * FROM users WHERE username = ?", (username,)
+            "SELECT * FROM users WHERE username = ?;", (username,)
         ).fetchone()
 	return user
 
@@ -29,19 +29,25 @@ def get_user_by_name(username):
 def get_user_by_id(user_id):
 	db = get_db()
 	user = db.execute(
-            "SELECT * FROM users WHERE id = ?", (user_id,)
+            "SELECT * FROM users WHERE id = ?;", (user_id,)
         ).fetchone()
 	return user
 
 
-
 def get_all_tasks():
 	db = get_db()
-	tasks = db.execute(
+	return db.execute(
 		"SELECT id, author, title, body, created"
-		" FROM tasks ORDER BY created DESC"
+		" FROM tasks ORDER BY created DESC;"
 	).fetchall()
-	return tasks
+
+
+def get_all_users():
+	db = get_db()
+	return db.execute(
+		"SELECT id, first_name, second_name, surname, username, password, is_admin"
+		" FROM users;"
+	).fetchall()
 
 
 def add_new_user(fstn, secn, surn, login, psw, is_admin):
@@ -63,7 +69,7 @@ def add_new_user(fstn, secn, surn, login, psw, is_admin):
 					hashed_psw = generate_password_hash(psw)
 					db.execute("INSERT INTO users"
 						"(first_name, second_name, surname, username, password, is_admin)"
-						"VALUES (?, ?, ?, ?, ?, ?)",
+						"VALUES (?, ?, ?, ?, ?, ?);",
 						(fstn, secn, surn, login, hashed_psw, is_admin)
 						)
 					db.commit()
@@ -129,14 +135,34 @@ def init_db():
 			db.executescript(f.read().decode("utf8"))
 
 
-@click.command("init-db")
-def init_db_command():
-	init_db()
-	add_default_admin()
-	add_default_tasks()
-	click.echo("Initialized the database.")
-
-
 def init_app(app):
 	app.teardown_appcontext(close_db)
 	app.cli.add_command(init_db_command)
+	app.cli.add_command(add_user_command)
+
+
+@click.command("init-db")
+@click.option("--da", default=False)
+@click.option("--dt", default=False)
+def init_db_command(da, dt):
+	init_db()
+	if da:
+		add_default_admin()
+	if dt:
+		add_default_tasks()
+	click.echo("Initialized the database.")
+
+
+@click.command("add-user")
+@click.option("--fstn", required=True, type=str)
+@click.option("--secn", required=True, type=str)
+@click.option("--surn", required=True, type=str)
+@click.option("--login", required=True, type=str)
+@click.option("--psw", required=True, type=str)
+@click.option("--isadm", required=True, type=bool)
+def add_user_command(fstn, secn, surn, login, psw, isadm):
+	resp = add_new_user(fstn, secn, surn, login, psw, isadm)
+	if resp['success'] == True:
+		click.echo(f"Added new account to database with login '{login}'")
+	else:
+		click.echo(resp['error'])

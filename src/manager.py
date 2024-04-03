@@ -8,10 +8,8 @@ bp = Blueprint('manager', __name__)
 @auth.login_required
 def index():
 	if g.is_admin:
-		tasks = db.get_all_tasks()
-		for task in tasks:
-			print(task['author'], task['title'], task['body'])
-		return render_template("admin/admin_panel.html", tasks=tasks)
+		users = db.get_all_users()
+		return render_template("admin/admin_panel.html", users=users)
 	return render_template("user/index.html")
 
 

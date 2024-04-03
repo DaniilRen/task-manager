@@ -1,23 +1,22 @@
 {% extends 'base.html' %}
 
+
 {% block header %}
-  <h1>{% block title %}Tasks{% endblock %}</h1>
+<h1>{% block title %}Пользователи{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-	{% if tasks is defined and tasks|length > 0 %}
-		{% for task in tasks %}
+	{% if users is defined and users|length > 0 %}
+		{% for user in users %}
 			<article class="task">
 				<header>
 					<div>
-						<h1>{{ task['title'] }}</h1>
-						<div class="about">by {{ task['author'] }} on {{ task['created'].strftime('%Y-%m-%d') }}</div>
+						<h1>{{ user['first_name'] }}</h1>
+						<div class="about">id: {{ g['user'] }}</div>
+						<div class="about">is admin: {{ g['is_admin'] }}</div>
 					</div>
-					<!-- {% if g.user['id'] == task['author_id'] %}
-						<a class="action" href="{{ url_for('manager.update', id=task['id']) }}">Edit</a>
-					{% endif %} -->
 				</header>
-				<p class="body">{{ task['body'] }}</p>
+	
 			</article>
 			{% if not loop.last %}
 				<hr>
@@ -25,3 +24,4 @@
 		{% endfor %}
 	{% endif %}
 {% endblock %}
+

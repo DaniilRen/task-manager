@@ -40,7 +40,7 @@ def login():
 		if user is None:
 				error = 'Неверное имя пользователя'
 		elif not check_password_hash(user['password'], password):
-				error = 'Неверный пароль.'
+				error = 'Неверный пароль'
 
 		if error is None:
 				print('Logged in')

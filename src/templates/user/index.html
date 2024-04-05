@@ -1,11 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
-	<h1>User task panel</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Список задач{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+	{% if tasks is defined and tasks|length > 0 %}
+		{% for task in tasks %}
+			<div class="task-panel">
+				<h3>{{ task['title'] }}</h3>
+				<p class="task-about">
+					{% if task['body']|length > 75 %} {{ task['body'][:76] }}... 
+					{% else %} {{ task['body'] }} {% endif %}
+				</p>
+				<a class="button see-more" href="#">Подробнее</a>
+			</div>
+			{% if not loop.last %}
+				<hr>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+{% endblock %}
+

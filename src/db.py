@@ -17,12 +17,25 @@ def close_db(e=None):
 	if db is not None:
 			db.close()
 
+def delete_user(id):
+	db = get_db()
+	db.execute(
+				"DELETE FROM users WHERE id = ?;", (id,)
+		).fetchone()
+	return 0
+
+def delete_task(id):
+	db = get_db()
+	db.execute(
+				"DELETE FROM tasks WHERE id = ?;", (id,)
+		).fetchone()
+	return 0
 
 def get_user_by_name(username):
 	db = get_db()
 	user = db.execute(
-            "SELECT * FROM users WHERE username = ?;", (username,)
-        ).fetchone()
+						"SELECT * FROM users WHERE username = ?;", (username,)
+				).fetchone()
 	return user
 
 
@@ -120,7 +133,7 @@ def add_new_task(author, title, body):
 
 
 def add_default_tasks():
-	tasks = [('daniil', 'task1', 'body1'), ('daniil', 'task2', 'body2'), ('daniil', 'task3', 'body3')]
+	tasks = [('daniil', 'task1', 'body1'), ('daniil', 'task2', 'body2'*20), ('daniil', 'task3', 'body3')]
 	for task in tasks:
 		resp = add_new_task(*task)
 		if resp['success']:

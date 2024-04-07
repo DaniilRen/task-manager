@@ -9,16 +9,16 @@
 
 .button:hover, .form-button:hover {
 	color: var(--white);
-	background-color: var(--blue);
-	border-color: var(--blue);
+	background-color: var(--darkblue);
+	border-color: var(--darkblue);
 }
 
-.delete-user {
+.delete{
 	color: var(--red);
 	border: 1px outset var(--red);
 }
 
-.delete-user:hover {
+.delete:hover {
 	background-color: var(--red);;
 	border: 1px outset var(--red);
 }
@@ -90,6 +90,10 @@
 	color: var(--white);
 }
 
+.form-button-block {
+	margin-top: 25px;
+}
+
 .form-button {
 	cursor: pointer;
 	padding: 6px;
@@ -100,12 +104,20 @@
 	transition: var(--transition);
 }
 
-#login-form input {
-	margin-top: 10px;
-}
-
 .user-panel-buttons {
 	min-width: 375px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.task-panel-buttons {
+	min-width: 240px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.task-page-buttons {
+	max-width: 275px;
 	display: flex;
 	justify-content: space-between;
 }

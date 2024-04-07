@@ -3,8 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='common.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='buttons.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='task.css') }}">
 	<title>{% block title %}{% endblock %} TaskManager</title>
 </head>
 
@@ -20,9 +22,6 @@
 		<header>
 			{% block header %}{% endblock %}
 		</header>
-		{% for message in get_flashed_messages() %}
-			<div class="flash">{{ message }}</div>
-		{% endfor %}
 		{% block content %}{% endblock %}
 	</section>
 </body>

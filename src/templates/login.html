@@ -6,6 +6,9 @@
 		<div class="login-title">
 			<h1>Вход в систему</h1>
 		</div>
+		{% for message in get_flashed_messages() %}
+		<div class="flash">{{ message }}</div>
+		{% endfor %}
 		<form id="login-form" action="", method="post">
 			<div class="form-field">
 				<input type="text" placeholder="Имя пользователя" name="username" id="username" required />

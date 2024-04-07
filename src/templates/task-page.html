@@ -2,43 +2,24 @@
 
 {% block content %}
 	<div class="overlay">
-		{% if task in defined %}
-			<div class="content-panel">
-				<h3>task['title']</h3>
-				<p>task['body']</p>
+		{% if task is defined %}
+			<div class="content-panel task-panel">
+				<h2>{{ task['title'] }}</h2>
 				<p class="timestamp">Назначено {{ task['created'].strftime('%Y-%m-%d') }}</p>
+				<div class="task-body">{{ task['body'] }}</div>
 
-				<form method="post" enctype="multipart/form-data">
-					<select name="task-status" id="task-status" class="task-status">
-						<option value="in-work">В работе</option>
-						<option value="done" selected>Выполнено</option>
-					</select>
-					<div>
-						<label for="file">Выберите файл</label>
-						<input type="file" id="file" name="file" multiple />
+				<form action="" method="post">
+					<div class="task-page-buttons">
+						<select name="task-status" id="task-status" class="task-status">
+							<option value="in-work">В процессе</option>
+							<option value="done" selected>Выполнено</option>
+						</select>
+						{% if not g.user['is_admin'] %}
+							<a href="/{{ task['id'] }}/delete-task" class="button delete">Удалить задачу</a>
+						{% endif %}
 					</div>
 					<div>
-						<button>Сохранить</button>
-					</div>
-				</form>
-			</div>
-		{% else %}
-			<div class="content-panel">
-				<h3>Task name</h3>
-				<p>task-about</p>
-				<p class="timestamp">Назначено 01.01.27</p>
-
-				<form method="post" enctype="multipart/form-data">
-					<select name="task-status" id="task-status" class="task-status">
-						<option value="in-work">В работе</option>
-						<option value="done" selected>Выполнено</option>
-					</select>
-					<div>
-						<label for="file">Выберите файл</label>
-						<input type="file" id="file" name="file" multiple />
-					</div>
-					<div>
-						<button>Сохранить</button>
+						<input class="form-button" type="submit" value="Готово" />
 					</div>
 				</form>
 			</div>

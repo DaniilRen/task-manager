@@ -3,6 +3,9 @@
 {% block content %}
 	<div class="wrapper">
 		<h1>{% block title %}Создание пользователя{% endblock %}</h1>
+		{% for message in get_flashed_messages() %}
+		<div class="flash">{{ message }}</div>
+		{% endfor %}
 		<form action="", method="post">
 			<div class="form-field">
 				<input type="text" placeholder="Имя" name="first_name" id="first_name" required />

@@ -1,0 +1,23 @@
+.task-body {
+	overflow: scroll;
+	max-height: 200px;
+	max-width: 920px;
+	padding: 1rem;
+	margin-bottom: 28px;
+	margin-top: 16px;
+	border: 1px solid var(--darkblue);
+	border-radius: 8px;
+}
+
+.task-panel h2 {
+	margin-bottom: 8px;
+}
+
+.task-panel .form-button {
+	margin-top: 40px;
+	min-width: 275px;
+}
+
+.timestamp {
+	margin-bottom: 12px;
+}

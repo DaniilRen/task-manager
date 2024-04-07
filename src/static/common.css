@@ -2,10 +2,9 @@
 	--white: #f1f2f3;
 	--lightgray: #e5e5e5;
 	--gray: #cacaca;
-	--accent: #018ac0;
 	--red: #eb363e;
 	--yellow: #ffe600;
-	--blue: #2c9cbe;
+	--blue: #018ac0;
 	--darkblue: #03151f;
 	--box-shadow: 10px 10px 40px 20px rgba(0, 0, 0, 0.1);
 	--transition: all .15s ease-in;
@@ -19,12 +18,12 @@
 	box-sizing: border-box;
 	font-family: "Open Sans", sans-serif;
 	outline: none;
+	color: var(--darkblue);
 }
 
 a {
 	text-decoration: none;
 	cursor: pointer;
-	color: var(--darkblue);
 }
 
 body {
@@ -50,7 +49,7 @@ nav a{
 }
 
 nav a:hover {
-	color: var(--accent);
+	text-decoration: underline;
 }
 
 h1 {
@@ -66,8 +65,20 @@ h3 {
 	font-weight: bold;
 }
 
-ul {
-	list-style-type: square;
+select {
+  max-width: 200px;
+  border: 1px solid var(--darkblue);
+  border-radius: 8px;
+  padding: 6px;
+  font-size: 16px;
+  cursor: pointer;
+	background-color: var(--white);
+}
+
+
+select::-ms-expand {
+  display: none;
+	outline: none;
 }
 
 .timestamp {
@@ -87,6 +98,10 @@ ul {
 
 .wrapper {
 	padding: 1.5rem 1rem 1rem;
+}
+
+.wrapper h1 {
+	margin-bottom: 10px;
 }
 
 .content header {
@@ -120,8 +135,18 @@ ul {
 }
 
 .flash {
-	color: red;
-	text-decoration: underline;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+	margin-bottom: -10px;
+	padding: 6px;
+	background-color: var(--lightgray);
+	border-radius: 8px;
+	border: 1px solid var(--red);
+	min-width: 120px;
+	max-width: 340px;
+	color: var(--red);
 }
 
 .admin-tools {
@@ -190,22 +215,3 @@ ul {
 	background-color: var(--white);
 	max-width: 50vh;
 }
-
-.login-content {
-	display: block;
-	min-width: 375px;
-	height: 500px;
-}
-
-.login-title {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin: 40px 0;
-}
-
-#login-form {
-	padding-top: 25px;
-}
-
-

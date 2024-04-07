@@ -20,9 +20,8 @@ def close_db(e=None):
 def delete_user(id):
 	db = get_db()
 	try:
-		db.execute(
-					"DELETE FROM users WHERE id = ?;", (id,)
-			).fetchone()
+		db.execute("DELETE FROM users WHERE id = ?;", (id,))
+		db.commit()
 		return {'success': True}
 	except db.IntegrityError as e:
 		return {'success': False, 'error': e}
@@ -30,9 +29,8 @@ def delete_user(id):
 def delete_task(id):
 	db = get_db()
 	try:
-		db.execute(
-					"DELETE FROM tasks WHERE id = ?;", (id,)
-			).fetchone()
+		db.execute("DELETE FROM tasks WHERE id = ?;", (id,))
+		db.commit()
 		return {'success': True}
 	except db.IntegrityError as e:
 		return {'success': False, 'error': e}
@@ -54,6 +52,14 @@ def get_user_by_id(user_id):
 	return user
 
 
+def get_task_by_id(user_id):
+	db = get_db()
+	task = db.execute(
+            "SELECT * FROM tasks WHERE id = ?;", (user_id,)
+        ).fetchone()
+	return task
+
+
 def get_all_tasks():
 	db = get_db()
 	return db.execute(
@@ -68,6 +74,16 @@ def get_all_users():
 		"SELECT id, first_name, second_name, surname, username, password, is_admin"
 		" FROM users;"
 	).fetchall()
+
+
+def update_task(id, status):
+	db = get_db()
+	try:
+		db.execute("UPDATE tasks SET current_status = ? WHERE id = ?;", (status, id))
+		db.commit()
+	except db.IntegrityError as e:
+		return {'success': False, 'error': e}
+	return {'success': True}
 
 
 def add_new_user(fstn, secn, surn, login, psw, is_admin):
@@ -110,12 +126,13 @@ def add_default_admin():
 		print(f"Error while adding default admin account: {resp['error']}")
 
 
-def add_new_task(author, title, body):
+def add_new_task(author, title, body, status):
 	db = get_db()
 	error = None
 	missing = {author: 'автора',
 						title: 'заголовок',
-						body: 'описание'}
+						body: 'описание',
+						status: 'статус'}
 
 	for i in missing:
 		if not i:
@@ -125,9 +142,9 @@ def add_new_task(author, title, body):
 	if error is None:
 			try:
 					db.execute("INSERT INTO tasks"
-						"(author, title, body)"
-						"VALUES (?, ?, ?)",
-						(author, title, body)
+						"(author, title, body, current_status)"
+						"VALUES (?, ?, ?, ?)",
+						(author, title, body, status)
 						)
 					db.commit()
 			except db.IntegrityError:
@@ -140,7 +157,9 @@ def add_new_task(author, title, body):
 
 
 def add_default_tasks():
-	tasks = [('daniil', 'task1', 'body1'), ('daniil', 'task2', 'body2'*20), ('daniil', 'task3', 'body3')]
+	tasks = [('daniil', 'task1', 'Lorem Ipsum is simply dummy text of the', 'В процессе'),
+					('daniil', 'task2', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard ", 'В процессе'),
+					('daniil', 'task3', "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 'Выполнено')]
 	for task in tasks:
 		resp = add_new_task(*task)
 		if resp['success']:

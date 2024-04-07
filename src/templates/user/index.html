@@ -11,12 +11,12 @@
 						{% if task['body']|length > 75 %} {{ task['body'][:76] }}... 
 						{% else %} {{ task['body'] }} {% endif %}
 					</div>
-					<div class="task-user-buttons">
+					<div class="task-panel-buttons">
 						<select name="task-status" id="task-status" class="task-status">
 							<option value="in-work">В работе</option>
 							<option value="done" selected>Выполнено</option>
 						</select>
-						<a class="button see-more" href="{{ url_for('manager.task_page') }}">Подробнее</a>
+						<a class="button see-more" href="/{{ task['id'] }}/task-page">Подробнее</a>
 					</div>
 				</div>
 				{% if not loop.last %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block header %}
+	<div class="header-content">
+		<div class="main-page-block">
+			<h1 class="main-page-title">{% block title %}Task <span>manager</span>{% endblock %}</h1>
+			<a href="/auth/login" class="button button-main-login">Войти</a>
+		</div>
+	</div>
+{% endblock %}
+

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="overlay">
+		{% if task in defined %}
+			<div class="content-panel">
+				<h3>task['title']</h3>
+				<p>task['body']</p>
+				<p class="timestamp">Назначено {{ task['created'].strftime('%Y-%m-%d') }}</p>
+
+				<form method="post" enctype="multipart/form-data">
+					<select name="task-status" id="task-status" class="task-status">
+						<option value="in-work">В работе</option>
+						<option value="done" selected>Выполнено</option>
+					</select>
+					<div>
+						<label for="file">Выберите файл</label>
+						<input type="file" id="file" name="file" multiple />
+					</div>
+					<div>
+						<button>Сохранить</button>
+					</div>
+				</form>
+			</div>
+		{% else %}
+			<div class="content-panel">
+				<h3>Task name</h3>
+				<p>task-about</p>
+				<p class="timestamp">Назначено 01.01.27</p>
+
+				<form method="post" enctype="multipart/form-data">
+					<select name="task-status" id="task-status" class="task-status">
+						<option value="in-work">В работе</option>
+						<option value="done" selected>Выполнено</option>
+					</select>
+					<div>
+						<label for="file">Выберите файл</label>
+						<input type="file" id="file" name="file" multiple />
+					</div>
+					<div>
+						<button>Сохранить</button>
+					</div>
+				</form>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}
+

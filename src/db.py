@@ -19,17 +19,24 @@ def close_db(e=None):
 
 def delete_user(id):
 	db = get_db()
-	db.execute(
-				"DELETE FROM users WHERE id = ?;", (id,)
-		).fetchone()
-	return 0
+	try:
+		db.execute(
+					"DELETE FROM users WHERE id = ?;", (id,)
+			).fetchone()
+		return {'success': True}
+	except db.IntegrityError as e:
+		return {'success': False, 'error': e}
 
 def delete_task(id):
 	db = get_db()
-	db.execute(
-				"DELETE FROM tasks WHERE id = ?;", (id,)
-		).fetchone()
-	return 0
+	try:
+		db.execute(
+					"DELETE FROM tasks WHERE id = ?;", (id,)
+			).fetchone()
+		return {'success': True}
+	except db.IntegrityError as e:
+		return {'success': False, 'error': e}
+
 
 def get_user_by_name(username):
 	db = get_db()

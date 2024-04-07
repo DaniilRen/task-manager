@@ -48,8 +48,7 @@ def login():
 				session['user_id'] = user['id']
 				if user['is_admin'] == True:
 					session['is_admin'] = True
-					return redirect(url_for('index'))
-				return redirect(url_for('index'))
+				return redirect(url_for('main'))
 		
 		print(f'ERROR: {error}')
 		flash(error)

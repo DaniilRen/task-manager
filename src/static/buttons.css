@@ -1,0 +1,111 @@
+.button {
+	padding: 6px;
+	border: 1px outset var(--darkblue);
+	border-radius: 8px;
+	color: var(--darkblue);
+	background-color: var(--white);
+	transition: var(--transition);
+}
+
+.button:hover, .form-button:hover {
+	color: var(--white);
+	background-color: var(--blue);
+	border-color: var(--blue);
+}
+
+.delete-user {
+	color: var(--red);
+	border: 1px outset var(--red);
+}
+
+.delete-user:hover {
+	background-color: var(--red);;
+	border: 1px outset var(--red);
+}
+
+.button-main-login {
+	padding: 8px;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	margin: 40px 25px 0px 25px;
+	font-size: 20px;
+}
+
+.form-button-block input {
+	padding: 8px;
+	min-width: 75%;
+	margin: 0 12.5%;
+	border: 1px solid var(--darkblue);
+	border-radius: 8px;
+	color: var(--darkblue);
+	background-color: var(--white);
+	transition: var(--transition);
+}
+
+.form_toggle {
+	display: inline-block;
+	overflow: hidden;
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
+.form_toggle-item {
+	float: left;
+	display: inline-block;
+}
+
+.form_toggle-item input[type=radio] {
+	display: none;
+}
+
+.form_toggle-item label {
+	display: inline-block;
+	padding: 0px 15px;   
+	line-height: 34px;    
+	border: 1px solid var(--darkblue);
+	border-right: none;
+	cursor: pointer;
+	user-select: none;   
+}
+
+.form_toggle .item-1 label {
+	transition: var(--transition);
+	border-radius: 6px 0 0 6px;
+}
+
+.form_toggle .item-2 label {
+	transition: var(--transition);
+	border-radius: 0 6px 6px 0;
+	border-right: 1px solid var(--darkblue);
+}
+
+.form_toggle .item-1 input[type=radio]:checked + label {
+	background: var(--darkblue);
+	color: var(--white);
+}
+
+.form_toggle .item-2 input[type=radio]:checked + label {
+	background: var(--darkblue);
+	color: var(--white);
+}
+
+.form-button {
+	cursor: pointer;
+	padding: 6px;
+	border: 1px solid var(--darkblue);
+	border-radius: 8px;
+	color: var(--darkblue);
+	background-color: var(--white);
+	transition: var(--transition);
+}
+
+#login-form input {
+	margin-top: 10px;
+}
+
+.user-panel-buttons {
+	min-width: 375px;
+	display: flex;
+	justify-content: space-between;
+}

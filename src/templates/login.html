@@ -1,21 +1,22 @@
 {% extends 'base.html' %}
 
-{% block header %}
-<h1>{% block title %} Вход в систему {% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
-<form action="", method="post">
-	<div class="form-field">
-		<label for="username">Имя пользователя:</label>
-		<input type="text" name="username" id="username" required />
+<div class="overlay">
+	<div class="content-panel login-content">
+		<div class="login-title">
+			<h1>Вход в систему</h1>
+		</div>
+		<form id="login-form" action="", method="post">
+			<div class="form-field">
+				<input type="text" placeholder="Имя пользователя" name="username" id="username" required />
+			</div>
+			<div class="form-field">
+				<input type="password" placeholder="Пароль" name="password" id="password" required />
+			</div>
+			<div class="form-button-block">
+				<input class="form-button" type="submit" value="Войти" />
+			</div>
+		</form>
 	</div>
-	<div class="form-field">
-		<label for="password">Пароль:</label>
-		<input type="password" name="password" id="password" required />
-	</div>
-	<div class="form-example">
-		<input type="submit" value="Войти" />
-	</div>
-</form>
+</div>
 {% endblock %}

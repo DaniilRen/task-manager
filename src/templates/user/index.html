@@ -2,7 +2,14 @@
 
 {% block content %}
 	<div class="wrapper">
-		<h1>{% block title %}Список задач{% endblock %}</h1>
+
+		<div class="admin-tools">
+			<h2>Список задач</h2>
+			{% if g['is_admin'] %}
+				<a href="{{ url_for('manager.add_task') }}" class="button add-task">Добавить задачу</a>
+			{% endif %}
+		</div>
+
 		{% if tasks is defined and tasks|length > 0 %}
 			{% for task in tasks %}
 				<div class="panel task-panel">
@@ -12,11 +19,10 @@
 						{% else %} {{ task['body'] }} {% endif %}
 					</div>
 					<div class="task-panel-buttons">
-						<select name="task-status" id="task-status" class="task-status">
-							<option value="in-work">В работе</option>
-							<option value="done" selected>Выполнено</option>
-						</select>
-						<a class="button see-more" href="/{{ task['id'] }}/task-page">Подробнее</a>
+						{% if g['is_admin'] %}
+							<a href="/delete-task/{{ task['id'] }}" class="button delete" id="delete-task-button">Удалить задачу</a>
+						{% endif %}
+						<a class="button see-more" href="/task-page/{{ task['id'] }}">Подробнее</a>
 					</div>
 				</div>
 				{% if not loop.last %}

@@ -3,6 +3,10 @@ import sqlite3
 import click
 from werkzeug.security import generate_password_hash
 
+IN_PROGRESS_STATUS = 'В процессе'
+DONE_STATUS = 'Выполнено'
+
+
 def get_db():
 	if "db" not in g:
 			g.db = sqlite3.connect(
@@ -17,6 +21,7 @@ def close_db(e=None):
 	if db is not None:
 			db.close()
 
+
 def delete_user(id):
 	db = get_db()
 	try:
@@ -25,6 +30,7 @@ def delete_user(id):
 		return {'success': True}
 	except db.IntegrityError as e:
 		return {'success': False, 'error': e}
+
 
 def delete_task(id):
 	db = get_db()
@@ -52,10 +58,10 @@ def get_user_by_id(user_id):
 	return user
 
 
-def get_task_by_id(user_id):
+def get_task_by_id(task_id):
 	db = get_db()
 	task = db.execute(
-            "SELECT * FROM tasks WHERE id = ?;", (user_id,)
+            "SELECT * FROM tasks WHERE id = ?;", (task_id,)
         ).fetchone()
 	return task
 
@@ -63,8 +69,14 @@ def get_task_by_id(user_id):
 def get_all_tasks():
 	db = get_db()
 	return db.execute(
-		"SELECT id, author, title, body, created"
-		" FROM tasks ORDER BY created DESC;"
+		"SELECT * FROM tasks ORDER BY created DESC;"
+	).fetchall()
+
+
+def get_user_tasks(user_id):
+	db = get_db()
+	return db.execute(
+		"SELECT * FROM tasks WHERE recipient = ? ORDER BY created DESC;", (user_id,)
 	).fetchall()
 
 
@@ -78,6 +90,10 @@ def get_all_users():
 
 def update_task(id, status):
 	db = get_db()
+	if status == "1":
+		status = DONE_STATUS
+	else:
+		status = IN_PROGRESS_STATUS
 	try:
 		db.execute("UPDATE tasks SET current_status = ? WHERE id = ?;", (status, id))
 		db.commit()
@@ -118,18 +134,11 @@ def add_new_user(fstn, secn, surn, login, psw, is_admin):
 	return {'success': True}
 
 
-def add_default_admin():
-	resp = add_new_user('admin', 'admin', 'admin', 'admin', 'admin', True)
-	if resp['success']:
-		print('Added default admin account')
-	else:
-		print(f"Error while adding default admin account: {resp['error']}")
-
-
-def add_new_task(author, title, body, status):
+def add_new_task(author_id, recipient, title, body, status):
 	db = get_db()
 	error = None
-	missing = {author: 'автора',
+	missing = {author_id: 'автора',
+						recipient: 'получатель',
 						title: 'заголовок',
 						body: 'описание',
 						status: 'статус'}
@@ -142,9 +151,9 @@ def add_new_task(author, title, body, status):
 	if error is None:
 			try:
 					db.execute("INSERT INTO tasks"
-						"(author, title, body, current_status)"
-						"VALUES (?, ?, ?, ?)",
-						(author, title, body, status)
+						"(author_id, recipient, title, body, current_status)"
+						"VALUES (?, ?, ?, ?, ?)",
+						(author_id, recipient, title, body, status)
 						)
 					db.commit()
 			except db.IntegrityError:
@@ -157,15 +166,27 @@ def add_new_task(author, title, body, status):
 
 
 def add_default_tasks():
-	tasks = [('daniil', 'task1', 'Lorem Ipsum is simply dummy text of the', 'В процессе'),
-					('daniil', 'task2', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard ", 'В процессе'),
-					('daniil', 'task3', "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 'Выполнено')]
+	tasks = [(11, 2, 'task1', 'Lorem Ipsum is simply dummy text of the', IN_PROGRESS_STATUS),
+					(11, 2, 'task2', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard ", IN_PROGRESS_STATUS),
+					(12, 3, 'task3', "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry.", DONE_STATUS)]
 	for task in tasks:
 		resp = add_new_task(*task)
 		if resp['success']:
 			print(f'Added task {task[1]}')
 		else:
 			print(f"Error while adding task {task[1]}: {resp['error']}")
+
+
+def add_default_users():
+	users = [('admin', 'admin', 'admin', 'admin', 'admin', True),
+					('user1', 'user1', 'user1', 'user1', 'user1', False),
+					('user2', 'user2', 'user2', 'user2', 'user2', False)]
+	for user in users:
+		resp = add_new_user(*user)
+		if resp['success']:
+			print(f"Added new account to database with login '{user[-3]}'")
+		else:
+			print(f"Error while adding default admin account: {resp['error']}")
 
 
 def init_db():
@@ -181,12 +202,12 @@ def init_app(app):
 
 
 @click.command("init-db")
-@click.option("--da", default=False)
+@click.option("--du", default=False)
 @click.option("--dt", default=False)
-def init_db_command(da, dt):
+def init_db_command(du, dt):
 	init_db()
-	if da:
-		add_default_admin()
+	if du:
+		add_default_users()
 	if dt:
 		add_default_tasks()
 	click.echo("Initialized the database.")

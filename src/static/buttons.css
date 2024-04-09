@@ -104,20 +104,21 @@
 	transition: var(--transition);
 }
 
+.task-panel-buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
 .user-panel-buttons {
 	min-width: 375px;
 	display: flex;
 	justify-content: space-between;
 }
 
-.task-panel-buttons {
-	min-width: 240px;
-	display: flex;
-	justify-content: space-between;
+#delete-task-button {
+	margin-right: 20px;
 }
 
-.task-page-buttons {
-	max-width: 275px;
-	display: flex;
-	justify-content: space-between;
+#see-user-tasks-button {
+	
 }

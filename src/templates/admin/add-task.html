@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="wrapper">
+		<h1>{% block title %}Назначение задачи{% endblock %}</h1>
+		{% for message in get_flashed_messages() %}
+		<div class="flash">{{ message }}</div>
+		{% endfor %}
+		<form action="", method="post">
+			<div class="form-field">
+				<input type="text" placeholder="Заголовок" name="title" id="title" required />
+			</div>
+			<div class="form-field">
+				<input type="text" placeholder="Описание" name="body" id="body" required />
+			</div>
+
+			<div class="form-button-block">
+				<input class="form-button" type="submit" value="Назначить" />
+			</div>
+		</form>
+	</div>
+{% endblock %}
+

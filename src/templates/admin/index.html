@@ -4,7 +4,7 @@
 	<div class="wrapper">
 		<div class="admin-tools">
 			<h2>Список пользователей</h2>
-			<a href="{{ url_for('manager.add_user') }}" class="button add-user">Добавить пользователя</a>
+			<a href="{{ url_for('manager.add_user') }}" class="button">Добавить пользователя</a>
 		</div>
 
 		{% if users is defined and users|length > 0 %}
@@ -16,12 +16,16 @@
 						<p>login: {{ user['username'] }}</p>
 						<p>админ: {% if user['is_admin'] == True %} да {% else %} нет {% endif %}</p>
 					</div>
+
 					<div class="user-panel-buttons">
-						<a class="button see-user-tasks" href="#">Посмотреть задачи</a>
-						<!-- <form id="delete-user-form-{{ user['id'] }}" action="/{{ user['id'] }}/delete-user" method="post"></form> -->
+						<a 
+							class="button" id="see-user-tasks-button"
+							href="/see-user/{{ user['id'] }}">
+							Посмотреть задачи
+						</a>
 						<a 
 							class="button delete"
-							href="/{{ user['id'] }}/delete-user">
+							href="/delete-user/{{ user['id'] }}">
 							Удалить пользователя
 						</a>
 					</div>

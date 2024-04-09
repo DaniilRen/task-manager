@@ -1,4 +1,4 @@
-from flask import render_template, g, Blueprint, request, url_for, redirect, flash
+from flask import render_template, g, Blueprint, request, url_for, redirect, flash, session
 from . import auth, db
 
 bp = Blueprint('manager', __name__)
@@ -16,13 +16,15 @@ def main():
 		users = db.get_all_users()
 		print('Redirecting to admin page')
 		return render_template("admin/index.html", users=users)
-	tasks = db.get_all_tasks()
+	
+	tasks = db.get_user_tasks(g.user)
 	print('Redirecting to user page')
 	return render_template("user/index.html", tasks=tasks)
 
 
 @bp.route('/add-user', methods=("GET", "POST"))
 @auth.login_required
+@auth.admin_required
 def add_user():
 	if request.method == "POST":
 		print(f'Adding new user: {request.form}...')
@@ -42,16 +44,38 @@ def add_user():
 	return render_template("admin/add-user.html")
 
 
-@bp.route('/see-user', methods=('POST',))
+@bp.route('/add-task', methods=("GET", "POST"))
+@auth.login_required
+@auth.admin_required
+def add_task():
+	if request.method == "POST":
+		print(f'Adding new task: {request.form}...')
+
+		resp = db.add_new_task(g.user,
+													session["watching_user"],
+													request.form["title"],
+													request.form["body"],
+													db.IN_PROGRESS_STATUS)
+		print(resp)
+		if not resp['success']:
+			flash(resp['error'])
+		else:
+			return redirect(url_for("main"))
+	return render_template("admin/add-task.html")
+
+
+@bp.route('/see-user/<int:id>', methods=("GET", "POST"))
 def see_user_tasks(id):
-	render_template('user/index.html')
+	session["watching_user"] = id
+	print(session["watching_user"])
+	return render_template('user/index.html', tasks=db.get_user_tasks(id))
 
 
-@bp.route('/<int:id>/task-page', methods=("GET", "POST"))
+@bp.route('/task-page/<int:id>', methods=("GET", "POST"))
 @auth.login_required
 def task_page(id):
-	print(request.method)
 	if request.method == "POST":
+		print(request.form)
 		new_status = request.form['status']
 		print(f'Updating post`s id = {id} status to {new_status}')
 		resp = db.update_task(id, new_status)
@@ -65,17 +89,19 @@ def task_page(id):
 	return render_template("task-page.html", task=db.get_task_by_id(id))
 
 
-@bp.route('/<int:id>/delete-user')
+@bp.route('/delete-user/<int:id>/')
 @auth.login_required
+@auth.admin_required
 def delete_user(id):
 	print(f'Deleting user with id = {id}')
 	print(db.delete_user(id))
 	return redirect(url_for("main"))
 
 
-@bp.route('/<int:id>/delete-task')
+@bp.route('/delete-task/<int:id>')
 @auth.login_required
+@auth.admin_required
 def delete_task(id):
 	print(f'Deleting task with id = {id}')
 	print(db.delete_task(id))
-	return redirect(url_for("main"))
+	return redirect(f"/see-user/{session['watching_user']}")

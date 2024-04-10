@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash
 
 IN_PROGRESS_STATUS = 'В процессе'
 DONE_STATUS = 'Выполнено'
+ALL_TASKS = 'Все'
 
 
 def get_db():
@@ -66,11 +67,15 @@ def get_task_by_id(task_id):
 	return task
 
 
-def get_all_tasks():
-	db = get_db()
-	return db.execute(
-		"SELECT * FROM tasks ORDER BY created DESC;"
-	).fetchall()
+def get_filtered_tasks(user_id, filter_status):
+	if filter_status != ALL_TASKS:
+		db = get_db()
+		return db.execute(
+			"SELECT * FROM tasks WHERE recipient = ? AND current_status = ?"
+			"ORDER BY created DESC;", (user_id, filter_status)
+		).fetchall()
+	
+	return get_user_tasks(user_id)
 
 
 def get_user_tasks(user_id):

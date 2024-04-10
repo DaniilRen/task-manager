@@ -5,9 +5,23 @@
 
 		<div class="admin-tools">
 			<h2>Список задач</h2>
+
+			<div class="admin-tools-elements">
+			<form action="" method="post" id="hidden_form">
+				<select name="task-filter" id="task-filter" onchange="this.form.submit()">
+					<option value="filter" selected disabled hidden>
+						{% if filter_template is defined %} {{ filter_template }}
+						{% else %} Фильтр {% endif %}
+					</option>
+					<option value="0">В процессе</option>
+					<option value="1">Выполнено</option>
+					<option value="2">Все</option>
+				</select>
+			</form>
 			{% if g['is_admin'] %}
-				<a href="{{ url_for('manager.add_task') }}" class="button add-task">Добавить задачу</a>
+				<a href="{{ url_for('manager.add_task') }}" class="button" id="add-task">Добавить задачу</a>
 			{% endif %}
+			</div>
 		</div>
 
 		{% if tasks is defined and tasks|length > 0 %}
@@ -15,10 +29,12 @@
 				<div class="panel task-panel">
 					<div class="task-info">
 						<h3>{{ task['title'] }}</h3>
-						{% if task['body']|length > 75 %} {{ task['body'][:76] }}... 
+						{% if task['body']|length > 85 %} {{ task['body'][:86] }}... 
 						{% else %} {{ task['body'] }} {% endif %}
 					</div>
+
 					<div class="task-panel-buttons">
+						<div class="task-status-window">{{ task['current_status'] }}</div>
 						{% if g['is_admin'] %}
 							<a href="/delete-task/{{ task['id'] }}" class="button delete" id="delete-task-button">Удалить задачу</a>
 						{% endif %}

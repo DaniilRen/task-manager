@@ -13,11 +13,20 @@
 	margin-bottom: 8px;
 }
 
-.task-panel .form-button {
+#task-update-submit {
 	margin-top: 40px;
-	min-width: 275px;
+	max-width: 25%;
 }
 
-.timestamp {
+.task-info {
 	margin-bottom: 12px;
+}
+
+.task-status-window {
+	margin-right: 18px;
+	padding: 6px;
+	border-radius: 8px;
+	color: var(--darkblue);
+	background-color: var(--white);
+	transition: var(--transition);
 }

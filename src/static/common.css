@@ -155,6 +155,10 @@ select::-ms-expand {
 	align-items: center;
 }
 
+.admin-tools-elements {
+	display: flex;
+}
+
 .panel {
 	display: flex;
 	justify-content: space-between;
@@ -193,7 +197,9 @@ select::-ms-expand {
 	font-weight: 600;
 }
 
-
+#hidden_form {
+	margin: 0;
+}
 
 .overlay {
 	display: flex;

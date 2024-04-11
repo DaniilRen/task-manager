@@ -1,15 +1,12 @@
 from flask import Flask
-from . import manager, auth, db
+from . import manager, auth, db, config_module
+import json
 import os
 
 
 def create_app():
 	app = Flask(__name__)
-	
-	app.config.from_mapping(
-		SECRET_KEY=os.urandom(24),
-		DATABASE=os.path.join(os.getcwd(), "src/data.sqlite")
-		)
+	app.config.from_object(config_module.DevelopmentConfig())
 
 	app.register_blueprint(auth.bp)
 	app.register_blueprint(manager.bp)

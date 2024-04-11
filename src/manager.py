@@ -1,24 +1,19 @@
 from flask import render_template, g, Blueprint, request, url_for, redirect, flash, session
-from . import auth, db
+from . import auth, db, files
 
 bp = Blueprint('manager', __name__)
 
 
-def filter_tasks(request):
+def filter_tasks(user_id, request):
 	filter = request.form["task-filter"]
 	if filter == "0": 
 		filter = db.IN_PROGRESS_STATUS
 	elif filter == "1":
 		filter = db.DONE_STATUS
 	else: filter = db.ALL_TASKS
-	print("Filtering tasks:", filter)
+	print(f"Filtering tasks --> {filter}")
 
-	if "observed_user_id" in session:
-		tasks = db.get_filtered_tasks(session["observed_user_id"], filter)
-		return redirect(url_for("manager.observe_user_tasks", id=session["observed_user_id"]))
-	
-	tasks = db.get_filtered_tasks(g.user, filter)
-	return render_template("user/index.html", tasks=tasks, filter_template=filter)
+	return (db.get_filtered_tasks(user_id, filter), filter)
 
 
 @bp.route('/')
@@ -30,16 +25,17 @@ def index():
 @auth.login_required
 def main():
 	if request.method == "POST":
-		return filter_tasks(request)
+		tasks, template =filter_tasks(g.user, request)
+	else:
+			tasks, template = db.get_user_tasks(g.user), None
 
 	if g.is_admin:
 		users = db.get_all_users()
 		print('Redirecting to admin page')
 		return render_template("admin/index.html", users=users)
 	
-	tasks = db.get_user_tasks(g.user)
 	print('Redirecting to user page')
-	return render_template("user/index.html", tasks=tasks)
+	return render_template("user/index.html", tasks=tasks, filter_template=template)
 
 
 @bp.route('/add-user', methods=("GET", "POST"))
@@ -61,7 +57,7 @@ def add_user():
 			flash(resp['error'])
 		else:
 			return redirect(url_for("main"))
-	return render_template("admin/add-user.html")
+	return render_template("admin/add-user.html", main_page_url=request.referrer)
 
 
 @bp.route('/add-task', methods=("GET", "POST"))
@@ -70,6 +66,10 @@ def add_user():
 def add_task():
 	if request.method == "POST":
 		print(f'Adding new task: {request.form}...')
+
+		if 'file' in request.files:
+			resp = files.upload_file(request)
+			print(f"File upload: {resp}")
 
 		resp = db.add_new_task(g.user,
 													session["observed_user_id"],
@@ -80,20 +80,21 @@ def add_task():
 		if not resp['success']:
 			flash(resp['error'])
 		else:
-			return redirect(session["observed_user_url"])
-	return render_template("admin/add-task.html")
+			return redirect(url_for("manager.observe_user_tasks", id=session["observed_user_id"]))
+	return render_template("admin/add-task.html", main_page_url=request.referrer)
 
 
 @bp.route('/obs-user/<int:id>', methods=("GET", "POST"))
 @auth.login_required
 @auth.admin_required
 def observe_user_tasks(id):
-	if request.method == "POST":
-		filter_tasks(request)
 	session["observed_user_id"] = id
-	session["observed_user_url"] = f"/obs-user/{id}"
-	print(session["observed_user_id"])
-	return render_template('user/index.html', tasks=db.get_user_tasks(id))
+	if request.method == "POST":
+		tasks, template = filter_tasks(id, request)
+	else:
+		tasks, template = db.get_user_tasks(id), None
+
+	return render_template('user/index.html', tasks=tasks, filter_template=template)
 
 
 @bp.route('/task-page/<int:id>', methods=("GET", "POST"))
@@ -112,7 +113,7 @@ def task_page(id):
 	print(f'Redirecting to task {id}')
 	task = db.get_task_by_id(id)
 	author = db.get_user_by_id(task["author_id"])
-	return render_template("task-page.html", task=task, author=author)
+	return render_template("task-page.html", task=task, author=author, main_page_url=request.referrer)
 
 
 @bp.route('/delete-user/<int:id>/')

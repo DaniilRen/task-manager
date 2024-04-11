@@ -10,7 +10,7 @@
 			<form action="" method="post" id="hidden_form">
 				<select name="task-filter" id="task-filter" onchange="this.form.submit()">
 					<option value="filter" selected disabled hidden>
-						{% if filter_template is defined %} {{ filter_template }}
+						{% if filter_template is defined and filter_template != None %} {{ filter_template }}
 						{% else %} Фильтр {% endif %}
 					</option>
 					<option value="0">В процессе</option>

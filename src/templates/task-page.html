@@ -4,9 +4,17 @@
 	<div class="overlay">
 		{% if task is defined %}
 			<div class="content-panel task-panel">
-				<h2>{{ task['title'] }}</h2>
-				<p class="task-info">Назначено {{ task['created'].strftime('%Y-%m-%d') }}
-					 {{ author['first_name'] }} {{ author['second_name'] }} {{ author['surname'] }}</p>
+				<div class="header-block">
+					<div>
+						<h2>{{ task['title'] }}</h2>
+						<p class="task-info">Назначено {{ task['created'].strftime('%Y-%m-%d') }}
+							 {{ author['first_name'] }} {{ author['second_name'] }} {{ author['surname'] }}</p>
+					</div>
+					<div class="icon-close">
+						<a href="{{ main_page_url }}" class="icon-close-cross" onclick="this.form.submit()">+</a>
+					</div>
+				</div>
+
 				<div class="task-body">{{ task['body'] }}</div>
 
 				<form action="" method="post">

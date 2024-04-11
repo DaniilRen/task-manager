@@ -2,16 +2,27 @@
 
 {% block content %}
 	<div class="wrapper">
-		<h1>{% block title %}Назначение задачи{% endblock %}</h1>
+		<div class="header-block">
+			<h1>{% block title %}Назначение задачи{% endblock %}</h1>
+			<div class="icon-close">
+				<a href="{{ main_page_url }}" class="icon-close-cross" onclick="this.form.submit()">+</a>
+			</div>
+		</div>
+
 		{% for message in get_flashed_messages() %}
 		<div class="flash">{{ message }}</div>
 		{% endfor %}
-		<form action="", method="post">
+
+		<form enctype="multipart/form-data" action="" method="post">
 			<div class="form-field">
 				<input type="text" placeholder="Заголовок" name="title" id="title" required />
 			</div>
 			<div class="form-field">
 				<input type="text" placeholder="Описание" name="body" id="body" required />
+			</div>
+			<div>
+				<label for="file-upload" class="button">Выберите файлы</label>
+				<input type="file" class="file-upload" id="file-upload" name="file" multiple="multiple"/>
 			</div>
 
 			<div class="form-button-block">

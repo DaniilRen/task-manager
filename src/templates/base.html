@@ -12,7 +12,7 @@
 
 <body>
 	<nav>
-		<h2><a href="{{ url_for('main') }}">Task-manager</a></h2>
+		<h2><a href="{{ url_for('main') }}">Home</a></h2>
 		{% if request.path != "/" %}
 			<a class="nav-button" href="{{ url_for('auth.logout') }}">Выйти</a>
 		{% endif %}

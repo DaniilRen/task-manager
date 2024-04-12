@@ -1,5 +1,5 @@
 {
 	"DATABASE": "src/data.sqlite",
-	"UPLOADED_FILES_DEST": "src/storage",
+	"UPLOADED_FILES_DEST": "storage",
 	"ALLOWED_EXTENSIONS": ["txt", "pdf", "png", "jpg", "jpeg", "gif"]
 }

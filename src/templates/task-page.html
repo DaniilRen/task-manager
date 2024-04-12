@@ -20,11 +20,14 @@
 				{% if files is defined and files|length > 0 %}
 					{% for file in files %}
 						<a 
-							href="http://127.0.0.1:5000/file_storage/{{ file }}"
+							href="http://127.0.0.1:5000/download/{{ file }}"
 							class="file-holder"
 							download>
 							{{ file }}
 						</a>
+						{% if file != files[-1] %}
+						, 
+						{% endif %}
 					{% endfor %} 
 				{% endif %}
 

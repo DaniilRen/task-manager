@@ -17,7 +17,8 @@ def upload_file(file):
 	
 	if file and allowed_file(file.filename):
 		filename = secure_filename(file.filename)
-		file.save(os.path.join(current_app.config["UPLOADED_FILES_DEST"], filename))
+		storage_path = os.path.join(current_app.root_path, current_app.config['UPLOADED_FILES_DEST'])
+		file.save(os.path.join(storage_path, filename))
 		return {"success": True}
 	
 	error = "Расширение не поддерживается"

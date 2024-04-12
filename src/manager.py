@@ -1,5 +1,6 @@
-from flask import render_template, g, Blueprint, request, url_for, redirect, flash, session, current_app
+from flask import render_template, g, Blueprint, request, url_for, redirect, flash, session, current_app, send_from_directory
 from . import auth, db, file_utils
+import os
 
 bp = Blueprint('manager', __name__)
 
@@ -142,3 +143,9 @@ def delete_task(id):
 	print(f'Deleting task with id = {id}')
 	print(db.delete_task(id))
 	return redirect(f"/obs-user/{session['observed_user_id']}")
+
+@bp.route('/download/<path:filename>', methods=("GET",))
+def get_file(filename):
+	storage_path = os.path.join(current_app.root_path, current_app.config['UPLOADED_FILES_DEST'])
+	print(f"Downloading {filename}")
+	return send_from_directory(storage_path, filename)

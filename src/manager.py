@@ -1,5 +1,5 @@
-from flask import render_template, g, Blueprint, request, url_for, redirect, flash, session
-from . import auth, db, files
+from flask import render_template, g, Blueprint, request, url_for, redirect, flash, session, current_app
+from . import auth, db, file_utils
 
 bp = Blueprint('manager', __name__)
 
@@ -25,7 +25,7 @@ def index():
 @auth.login_required
 def main():
 	if request.method == "POST":
-		tasks, template =filter_tasks(g.user, request)
+		tasks, template = filter_tasks(g.user, request)
 	else:
 			tasks, template = db.get_user_tasks(g.user), None
 
@@ -68,14 +68,22 @@ def add_task():
 		print(f'Adding new task: {request.form}...')
 
 		if 'file' in request.files:
-			resp = files.upload_file(request)
-			print(f"File upload: {resp}")
+			files_arr = request.files.getlist("file")
+			for file in files_arr:
+				resp = file_utils.upload_file(file)
+				print(f"Upload {file.filename}: {resp}") 
+			filenames = ";".join([file.filename for file in files_arr])
+		else:
+			filenames = ";"
 
-		resp = db.add_new_task(g.user,
-													session["observed_user_id"],
-													request.form["title"],
-													request.form["body"],
-													db.IN_PROGRESS_STATUS)
+		resp = db.add_new_task(
+				g.user,
+				session["observed_user_id"],
+				request.form["title"],
+				request.form["body"],
+				db.IN_PROGRESS_STATUS,
+				filenames
+			)
 		print(resp)
 		if not resp['success']:
 			flash(resp['error'])
@@ -97,23 +105,25 @@ def observe_user_tasks(id):
 	return render_template('user/index.html', tasks=tasks, filter_template=template)
 
 
-@bp.route('/task-page/<int:id>', methods=("GET", "POST"))
+@bp.route('/task/<int:id>', methods=("GET", "POST"))
 @auth.login_required
 def task_page(id):
 	if request.method == "POST":
 		new_status = request.form['status']
 		print(f'Updating post`s id = {id} status to {new_status}')
-		resp = db.update_task(id, new_status)
+		resp = db.update_task_status(id, new_status)
 		print(resp)
 		if not resp['success']:
 			flash("Ошибка при обновлении статуса")
 		else:
-			redirect(url_for("main"))
+			return redirect(url_for("main"))
 
 	print(f'Redirecting to task {id}')
+	files = db.get_task_files(id)
 	task = db.get_task_by_id(id)
 	author = db.get_user_by_id(task["author_id"])
-	return render_template("task-page.html", task=task, author=author, main_page_url=request.referrer)
+	return render_template("task-page.html", task=task, author=author,
+												files=files, main_page_url=request.referrer)
 
 
 @bp.route('/delete-user/<int:id>/')

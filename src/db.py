@@ -46,24 +46,24 @@ def delete_task(id):
 def get_user_by_name(username):
 	db = get_db()
 	user = db.execute(
-						"SELECT * FROM users WHERE username = ?;", (username,)
-				).fetchone()
+				"SELECT * FROM users WHERE username = ?;", (username,)
+		).fetchone()
 	return user
 
 
 def get_user_by_id(user_id):
 	db = get_db()
 	user = db.execute(
-            "SELECT * FROM users WHERE id = ?;", (user_id,)
-        ).fetchone()
+				"SELECT * FROM users WHERE id = ?;", (user_id,)
+		).fetchone()
 	return user
 
 
 def get_task_by_id(task_id):
 	db = get_db()
 	task = db.execute(
-            "SELECT * FROM tasks WHERE id = ?;", (task_id,)
-        ).fetchone()
+				"SELECT * FROM tasks WHERE id = ?;", (task_id,)
+		).fetchone()
 	return task
 
 
@@ -71,9 +71,9 @@ def get_filtered_tasks(user_id, filter_status):
 	if filter_status != ALL_TASKS:
 		db = get_db()
 		return db.execute(
-			"SELECT * FROM tasks WHERE recipient = ? AND current_status = ?"
-			"ORDER BY created DESC;", (user_id, filter_status)
-		).fetchall()
+				"SELECT * FROM tasks WHERE recipient = ? AND current_status = ?"
+				"ORDER BY created DESC;", (user_id, filter_status)
+			).fetchall()
 	
 	return get_user_tasks(user_id)
 
@@ -81,19 +81,28 @@ def get_filtered_tasks(user_id, filter_status):
 def get_user_tasks(user_id):
 	db = get_db()
 	return db.execute(
-		"SELECT * FROM tasks WHERE recipient = ? ORDER BY created DESC;", (user_id,)
-	).fetchall()
+			"SELECT * FROM tasks WHERE recipient = ? ORDER BY created DESC;", (user_id,)
+		).fetchall()
 
 
 def get_all_users():
 	db = get_db()
 	return db.execute(
-		"SELECT id, first_name, second_name, surname, username, password, is_admin"
-		" FROM users;"
-	).fetchall()
+			"SELECT id, first_name, second_name, surname, username, password, is_admin"
+			" FROM users;"
+		).fetchall()
 
 
-def update_task(id, status):
+def get_task_files(id):
+	db = get_db()
+	files_string = db.execute(
+			"SELECT files FROM tasks WHERE id = ?;", (id,)
+		).fetchone()
+	return files_string["files"].split(";")
+
+
+
+def update_task_status(id, status):
 	db = get_db()
 	if status == "1":
 		status = DONE_STATUS
@@ -124,10 +133,11 @@ def add_new_user(fstn, secn, surn, login, psw, is_admin):
 	if error is None:
 			try:
 					hashed_psw = generate_password_hash(psw)
-					db.execute("INSERT INTO users"
-						"(first_name, second_name, surname, username, password, is_admin)"
-						"VALUES (?, ?, ?, ?, ?, ?);",
-						(fstn, secn, surn, login, hashed_psw, is_admin)
+					db.execute(
+							"INSERT INTO users"
+							"(first_name, second_name, surname, username, password, is_admin)"
+							"VALUES (?, ?, ?, ?, ?, ?);",
+							(fstn, secn, surn, login, hashed_psw, is_admin)
 						)
 					db.commit()
 			except db.IntegrityError:
@@ -139,7 +149,7 @@ def add_new_user(fstn, secn, surn, login, psw, is_admin):
 	return {'success': True}
 
 
-def add_new_task(author_id, recipient, title, body, status):
+def add_new_task(author_id, recipient, title, body, status, filenames):
 	db = get_db()
 	error = None
 	missing = {author_id: 'автора',
@@ -155,10 +165,11 @@ def add_new_task(author_id, recipient, title, body, status):
 
 	if error is None:
 			try:
-					db.execute("INSERT INTO tasks"
-						"(author_id, recipient, title, body, current_status)"
-						"VALUES (?, ?, ?, ?, ?)",
-						(author_id, recipient, title, body, status)
+					db.execute(
+							"INSERT INTO tasks"
+							"(author_id, recipient, files, title, body, current_status)"
+							"VALUES (?, ?, ?, ?, ?, ?)",
+							(author_id, recipient, filenames, title, body, status)
 						)
 					db.commit()
 			except db.IntegrityError:

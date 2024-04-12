@@ -1,5 +1,5 @@
 from werkzeug.utils import secure_filename
-from flask import flash, redirect, url_for, current_app
+from flask import flash, current_app
 import os
 
 
@@ -9,8 +9,7 @@ def allowed_file(filename):
 			filename.rsplit('.', 1)[1].lower() in current_app.config["ALLOWED_EXTENSIONS"]
 
 
-def upload_file(request):
-	file = request.files['file']
+def upload_file(file):
 	if file.filename == '':
 		error = 'Нет выбранного файла'
 		flash(error)
@@ -23,3 +22,4 @@ def upload_file(request):
 	
 	error = "Расширение не поддерживается"
 	return {"success": False, "error": error}
+

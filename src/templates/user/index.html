@@ -6,7 +6,7 @@
 		<div class="admin-tools">
 			<h2>Список задач</h2>
 
-			<div class="admin-tools-elements">
+			<div class="line-block">
 			<form action="" method="post" id="hidden_form">
 				<select name="task-filter" id="task-filter" onchange="this.form.submit()">
 					<option value="filter" selected disabled hidden>
@@ -29,16 +29,16 @@
 				<div class="panel task-panel">
 					<div class="task-info">
 						<h3>{{ task['title'] }}</h3>
-						{% if task['body']|length > 85 %} {{ task['body'][:86] }}... 
+						{% if task['body']|length > 75 %} {{ task['body'][:76] }}... 
 						{% else %} {{ task['body'] }} {% endif %}
 					</div>
 
-					<div class="task-panel-buttons">
+					<div class="line-block">
 						<div class="task-status-window">{{ task['current_status'] }}</div>
 						{% if g['is_admin'] %}
 							<a href="/delete-task/{{ task['id'] }}" class="button delete" id="delete-task-button">Удалить задачу</a>
 						{% endif %}
-						<a class="button see-more" href="/task-page/{{ task['id'] }}">Подробнее</a>
+						<a class="button see-more" href="/task/{{ task['id'] }}">Подробнее</a>
 					</div>
 				</div>
 				{% if not loop.last %}

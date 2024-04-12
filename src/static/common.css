@@ -224,7 +224,7 @@ select::-ms-expand {
 	max-width: 50vh;
 }
 
-.header-block {
+.line-block {
 	display: flex;
 	justify-content: space-between;
 }

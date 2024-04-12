@@ -31,15 +31,6 @@
 	transition: var(--transition);
 }
 
-.task-panel-buttons {
-	display: flex;
-	justify-content: space-between;
-}
-
 #delete-task-button {
 	margin-right: 18px;
-}
-
-#add-task {
-	margin-left: 18px;
 }

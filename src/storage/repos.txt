@@ -1,0 +1,4 @@
+Репозитории с решениями обеих задач. Для быстрой установки в каждом есть README файл с инструкцией
+
+1. Телеграм бот: https://github.com/DaniilRen/test-tg-bot
+2. Flask приложение:  https://github.com/DaniilRen/flask-mini-app

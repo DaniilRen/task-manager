@@ -2,7 +2,7 @@
 
 {% block content %}
 	<div class="wrapper">
-		<div class="header-block">
+		<div class="line-block">
 			<h1>{% block title %}Назначение задачи{% endblock %}</h1>
 			<div class="icon-close">
 				<a href="{{ main_page_url }}" class="icon-close-cross" onclick="this.form.submit()">+</a>
@@ -20,9 +20,14 @@
 			<div class="form-field">
 				<input type="text" placeholder="Описание" name="body" id="body" required />
 			</div>
-			<div>
-				<label for="file-upload" class="button">Выберите файлы</label>
-				<input type="file" class="file-upload" id="file-upload" name="file" multiple="multiple"/>
+			<div class="line-block">
+				<div>
+					<label for="file-upload" class="button">Выберите файлы</label>
+					<input type="file" class="file-upload" id="file-upload" name="file" multiple="multiple"/>
+				</div>
+				{% if files is defined and files|length > 0 %}
+					<p>{% for file in files %} {{ file }} {% endfor %}</p>
+				{% endif %}
 			</div>
 
 			<div class="form-button-block">

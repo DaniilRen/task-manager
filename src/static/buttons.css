@@ -124,16 +124,21 @@
 }
 
 .icon-close-cross {
+	user-select: none;
 	transform: rotate(45deg);
 	text-decoration: none;
 	color: #fff;
 }
 
 .file-upload {
-	width: 0.1px;
+	/* width: 0.1px;
 	height: 0.1px;
-	opacity: 0;
+	opacity: 0; */
 	overflow: hidden;
 	position: absolute;
 	z-index: -1;
+}
+
+#add-task {
+	margin-left: 18px;
 }

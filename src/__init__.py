@@ -1,7 +1,5 @@
 from flask import Flask
 from . import manager, auth, db, config_module
-import json
-import os
 
 
 def create_app():

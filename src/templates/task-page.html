@@ -4,7 +4,7 @@
 	<div class="overlay">
 		{% if task is defined %}
 			<div class="content-panel task-panel">
-				<div class="header-block">
+				<div class="line-block">
 					<div>
 						<h2>{{ task['title'] }}</h2>
 						<p class="task-info">Назначено {{ task['created'].strftime('%Y-%m-%d') }}
@@ -16,6 +16,17 @@
 				</div>
 
 				<div class="task-body">{{ task['body'] }}</div>
+
+				{% if files is defined and files|length > 0 %}
+					{% for file in files %}
+						<a 
+							href="http://127.0.0.1:5000/file_storage/{{ file }}"
+							class="file-holder"
+							download>
+							{{ file }}
+						</a>
+					{% endfor %} 
+				{% endif %}
 
 				<form action="" method="post">
 					<select name="status" id="status">

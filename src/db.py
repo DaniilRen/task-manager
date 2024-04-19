@@ -98,8 +98,20 @@ def get_task_files(id):
 	files_string = db.execute(
 			"SELECT files FROM tasks WHERE id = ?;", (id,)
 		).fetchone()
-	return files_string["files"].split(";")
+	files = [file for file in files_string["files"].split(";") if file != ""]
+	return files
 
+
+def update_task_files(id, new_files):
+	db = get_db()
+	old_files = get_task_files(id)
+	filenames = ";".join(old_files+[file.filename for file in new_files])
+	try:
+		db.execute("UPDATE tasks SET files = ? WHERE id = ?;", (filenames, id))
+		db.commit()
+	except db.IntegrityError as e:
+		return {'success': False, 'error': e}
+	return {'success': True}
 
 
 def update_task_status(id, status):
@@ -149,7 +161,7 @@ def add_new_user(fstn, secn, surn, login, psw, is_admin):
 	return {'success': True}
 
 
-def add_new_task(author_id, recipient, title, body, status, filenames):
+def add_new_task(author_id, recipient, title, body, status, filenames=";"):
 	db = get_db()
 	error = None
 	missing = {author_id: 'автора',

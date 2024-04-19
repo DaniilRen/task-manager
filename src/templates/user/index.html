@@ -38,13 +38,15 @@
 						{% if g['is_admin'] %}
 							<a href="/delete-task/{{ task['id'] }}" class="button delete" id="delete-task-button">Удалить задачу</a>
 						{% endif %}
-						<a class="button see-more" href="/task/{{ task['id'] }}">Подробнее</a>
+						<a class="button" id="see-more" href="/task/{{ task['id'] }}">Подробнее</a>
 					</div>
 				</div>
 				{% if not loop.last %}
 					<hr>
 				{% endif %}
 			{% endfor %}
+		{% else %}
+			<p id="info">Пользователь не имеет назначенных задач</p>
 		{% endif %}
 	</div>
 	

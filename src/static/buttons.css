@@ -1,7 +1,7 @@
 .button {
 	padding: 6px;
 	border: 1px outset var(--darkblue);
-	border-radius: 8px;
+	border-radius: var(--default-radius);
 	color: var(--darkblue);
 	background-color: var(--white);
 	transition: var(--transition);
@@ -24,6 +24,7 @@
 }
 
 .button-main-login {
+	min-width: 300px;
 	padding: 8px;
 	display: flex;
 	justify-content: center;
@@ -37,7 +38,7 @@
 	min-width: 75%;
 	margin: 0 12.5%;
 	border: 1px solid var(--darkblue);
-	border-radius: 8px;
+	border-radius: var(--default-radius);
 	color: var(--darkblue);
 	background-color: var(--white);
 	transition: var(--transition);
@@ -70,12 +71,12 @@
 
 .form_toggle .item-1 label {
 	transition: var(--transition);
-	border-radius: 6px 0 0 6px;
+	border-radius: var(--default-radius) 0 0 var(--default-radius);
 }
 
 .form_toggle .item-2 label {
 	transition: var(--transition);
-	border-radius: 0 6px 6px 0;
+	border-radius: 0 var(--default-radius) var(--default-radius) 0;
 	border-right: 1px solid var(--darkblue);
 }
 
@@ -90,14 +91,14 @@
 }
 
 .form-button-block {
-	margin-top: 55px;
+	margin-top: 35px;
 }
 
 .form-button {
 	cursor: pointer;
 	padding: 6px;
 	border: 1px solid var(--darkblue);
-	border-radius: 8px;
+	border-radius: var(--default-radius);
 	color: var(--darkblue);
 	background-color: var(--white);
 	transition: var(--transition);
@@ -118,12 +119,13 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-bottom-left-radius: 12px;
-	border-top-right-radius: 12px;
+	border-bottom-left-radius: var(--default-radius);
+	border-top-right-radius: var(--default-radius);
 	z-index: 1;
 }
 
 .icon-close-cross {
+	padding-left: 1px;
 	user-select: none;
 	transform: rotate(45deg);
 	text-decoration: none;
@@ -158,4 +160,8 @@
 
 #mail-link {
 	margin-left: 36px;
+}
+
+#see-more {
+	margin-left: 18px;
 }

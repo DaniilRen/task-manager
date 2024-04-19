@@ -1,4 +1,4 @@
-from flask import render_template, g, Blueprint, request, url_for, redirect, flash, session, current_app, send_from_directory
+from flask import render_template, g, Blueprint, request, url_for, redirect, flash, session, current_app, send_from_directory, abort
 from . import auth, db, file_utils
 import os
 
@@ -114,6 +114,14 @@ def task_page(id):
 		print(f'Updating post`s id = {id} status to {new_status}')
 		resp = db.update_task_status(id, new_status)
 		print(resp)
+		if 'file' in request.files:
+			files_arr = request.files.getlist("file")
+			resp = db.update_task_files(id, files_arr)
+			print(f"Updating task {id} files: {resp}")
+			for file in files_arr:
+				resp = file_utils.upload_file(file)
+				print(f"Upload {file.filename}: {resp}")
+
 		if not resp['success']:
 			flash("Ошибка при обновлении статуса")
 		else:
@@ -121,6 +129,7 @@ def task_page(id):
 
 	print(f'Redirecting to task {id}')
 	files = db.get_task_files(id)
+	print(files)
 	task = db.get_task_by_id(id)
 	author = db.get_user_by_id(task["author_id"])
 	return render_template("task-page.html", task=task, author=author,

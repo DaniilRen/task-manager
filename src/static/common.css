@@ -10,6 +10,7 @@
 	--darkblue: #03151f;
 	--box-shadow: 10px 10px 40px 20px rgba(0, 0, 0, 0.1);
 	--transition: all .15s ease-in;
+	--default-radius: 10px;
 	--z-1: 1;
 }
 
@@ -18,12 +19,14 @@
 	padding: 0;
 	border: 0;
 	box-sizing: border-box;
-	font-family: "Montserrat", sans-serif;
+	font-family: "Nunito Sans", sans-serif;
 	outline: none;
 	color: var(--darkblue);
 }
 
 a {
+	display: flex;
+	align-items: center;
 	text-decoration: none;
 	cursor: pointer;
 }
@@ -70,7 +73,7 @@ h3 {
 select {
   max-width: 200px;
   border: 1px solid var(--darkblue);
-  border-radius: 8px;
+  border-radius: var(--default-radius);
   padding: 6px;
   font-size: 16px;
   cursor: pointer;
@@ -93,12 +96,25 @@ select::-ms-expand {
 }
 
 .main-page-title {
-	font-size: 54px;
+	font-size: 50px;
 	margin-bottom: 20px;
 }
 
+.main-page-logo {
+	width: 395px;
+	height: 395px;
+}
+
+.logo-holder {
+	margin-bottom:40px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .wrapper {
-	padding: 1.5rem 1rem 1rem;
+	padding: 2.5rem 2.25rem 2.25rem;
 }
 
 .wrapper h1 {
@@ -143,7 +159,7 @@ select::-ms-expand {
 	margin-bottom: -10px;
 	padding: 6px;
 	background-color: var(--lightgray);
-	border-radius: 8px;
+	border-radius: var(--default-radius);
 	border: 1px solid var(--red);
 	min-width: 120px;
 	max-width: 340px;
@@ -168,7 +184,7 @@ select::-ms-expand {
 	padding: 1rem 2rem;
 	border: 1px solid gray;
 	background-color: rgb(255, 255, 255);
-	border-radius: 8px;
+	border-radius: var(--default-radius);
 }
 
 .user-panel h3 {
@@ -217,7 +233,7 @@ select::-ms-expand {
 	min-width: 75%;
 	height: 500px;
 	border: 2px solid var(--grey);
-	border-radius: 8px;
+	border-radius: var(--default-radius);
 	padding: 1rem;
 	background-color: var(--white);
 	max-width: 50vh;
@@ -226,4 +242,13 @@ select::-ms-expand {
 .line-block {
 	display: flex;
 	justify-content: space-between;
+}
+
+#task-page-buttons {
+	align-items: center;
+	max-width: 280px;
+}
+
+#info {
+	margin-top: 20px;
 }

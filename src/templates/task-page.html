@@ -22,20 +22,23 @@
 						<a 
 							href="http://127.0.0.1:5000/download/{{ file }}"
 							class="file-holder"
-							download>
-							{{ file }}
+							download><ion-icon name ="document-outline"></ion-icon>
+							{{ file }}{% if file != files[-1] %}, {% endif %}
 						</a>
-						{% if file != files[-1] %}
-						, 
-						{% endif %}
 					{% endfor %} 
 				{% endif %}
 
-				<form action="" method="post">
-					<select name="status" id="status">
-						<option value="0">В процессе</option>
-						<option value="1" selected>Выполнено</option>
-					</select>
+				<form enctype="multipart/form-data" action="" method="post">
+					<div class="line-block" id="task-page-buttons">
+						<select name="status" id="status">
+							<option value="0" selected>В процессе</option>
+							<option value="1">Выполнено</option>
+						</select>
+						<div>
+							<label id="task-page-file-upload" for="file-upload" class="button">Добавить файлы</label>
+							<input type="file" class="file-upload" id="file-upload" name="file" multiple="multiple"/>
+						</div>
+					</div>
 					<input class="form-button" id="task-update-submit" type="submit" value="Готово" />
 				</form>
 			</div>

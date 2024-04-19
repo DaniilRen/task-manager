@@ -7,7 +7,7 @@
 	margin-bottom: 28px;
 	margin-top: 16px;
 	border: 1px solid var(--darkblue);
-	border-radius: 8px;
+	border-radius: var(--default-radius);
 }
 
 .task-panel h2 {
@@ -25,12 +25,16 @@
 
 .task-status-window {
 	padding: 6px;
-	border-radius: 8px;
+	border-radius: var(--default-radius);
 	color: var(--darkblue);
 	background-color: var(--white);
 	transition: var(--transition);
 }
 
 #delete-task-button {
-	margin: 0 18px;
+	margin-left: 18px;
+}
+
+#task-page-file-upload {
+	font-weight: normal;
 }

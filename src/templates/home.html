@@ -3,7 +3,10 @@
 {% block header %}
 	<div class="header-content">
 		<div class="main-page-block">
-			<h1 class="main-page-title">{% block title %}Task manager{% endblock %}</h1>
+			<div class="logo-holder">
+				<img class="main-page-logo" src="{{ url_for('static', filename='assets/logo.png') }}" alt="">
+			</div>
+			<h1 class="main-page-title">{% block title %}Система контроля производственных процессов{% endblock %}</h1>
 			<a href="/auth/login" class="button button-main-login">Войти</a>
 		</div>
 	</div>

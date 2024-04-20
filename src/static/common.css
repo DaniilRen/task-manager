@@ -246,9 +246,30 @@ select::-ms-expand {
 
 #task-page-buttons {
 	align-items: center;
-	max-width: 280px;
+	max-width: 550px;
+}
+
+#nav-buttons-group {
+	min-width: 185px;
 }
 
 #info {
 	margin-top: 20px;
+}
+
+#deadline-block {
+	min-width: 240px;
+	height: 32px;
+	border-bottom: 2px solid var(--darkblue);
+}
+
+#deadline {
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	border: none;
+	outline: none;
+	font-size: 1em;
+	color: var(--darkblue);
+	font-weight: 600;
 }

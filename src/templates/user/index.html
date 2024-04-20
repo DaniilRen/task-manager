@@ -35,6 +35,11 @@
 
 					<div class="line-block">
 						<div class="task-status-window">{{ task['current_status'] }}</div>
+						{% if task['deadline'] is defined and task['deadline']|length > 1 %}
+							<div class="task-status-window" id="task-deadline-window">{{ task['deadline'] }}</div>
+						{% else %}
+							<div class="task-status-window" id="task-deadline-window">Срок не указан</div>
+						{% endif %}
 						{% if g['is_admin'] %}
 							<a href="/delete-task/{{ task['id'] }}" class="button delete" id="delete-task-button">Удалить задачу</a>
 						{% endif %}

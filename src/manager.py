@@ -5,16 +5,20 @@ import os
 bp = Blueprint('manager', __name__)
 
 
+""" Фильтрация задач по статусу """
 def filter_tasks(user_id, request):
-	filter = request.form["task-filter"]
-	if filter == "0": 
-		filter = db.IN_PROGRESS_STATUS
-	elif filter == "1":
-		filter = db.DONE_STATUS
-	else: filter = db.ALL_TASKS
+	filter = db.convert_task_status(request.form["task-filter"])
 	print(f"Filtering tasks --> {filter}")
 
 	return (db.get_filtered_tasks(user_id, filter), filter)
+
+
+""" Удаление пустых значений """
+@bp.app_template_filter('whitespaces')
+def remove_whitespaces(s):
+	if len(s) == 1:
+		return ""
+	return s
 
 
 @bp.route('/')
@@ -28,10 +32,10 @@ def main():
 	if request.method == "POST":
 		tasks, template = filter_tasks(g.user, request)
 	else:
-			tasks, template = db.get_user_tasks(g.user), None
+		tasks, template = db.get_user_tasks(g.user), None
 
 	if g.is_admin:
-		users = db.get_all_users()
+		users = db.get_all_users(g.user)
 		print('Redirecting to admin page')
 		return render_template("admin/index.html", users=users)
 	
@@ -54,8 +58,8 @@ def add_user():
 										request.form["surname"], request.form["username"],
 										request.form["password"], is_admin)
 		print(resp)
-		if not resp['success']:
-			flash(resp['error'])
+		if resp['status'] != "success":
+			flash(resp['status'])
 		else:
 			return redirect(url_for("main"))
 	return render_template("admin/add-user.html", main_page_url=request.referrer)
@@ -69,11 +73,9 @@ def add_task():
 		print(f'Adding new task: {request.form}...')
 
 		if 'file' in request.files:
-			files_arr = request.files.getlist("file")
-			for file in files_arr:
-				resp = file_utils.upload_file(file)
-				print(f"Upload {file.filename}: {resp}") 
-			filenames = ";".join([file.filename for file in files_arr])
+			files_arr = file_utils.preprocess_files(request.files.getlist("file"))
+			file_utils.upload_files(files_arr)
+			filenames = ";".join([f.filename for f in files_arr])
 		else:
 			filenames = ";"
 
@@ -83,11 +85,11 @@ def add_task():
 				request.form["title"],
 				request.form["body"],
 				db.IN_PROGRESS_STATUS,
+				"",
 				filenames
 			)
-		print(resp)
-		if not resp['success']:
-			flash(resp['error'])
+		if resp['status'] != "success":
+			flash(resp['status'])
 		else:
 			return redirect(url_for("manager.observe_user_tasks", id=session["observed_user_id"]))
 	return render_template("admin/add-task.html", main_page_url=request.referrer)
@@ -109,28 +111,32 @@ def observe_user_tasks(id):
 @bp.route('/task/<int:id>', methods=("GET", "POST"))
 @auth.login_required
 def task_page(id):
-	if request.method == "POST":
-		new_status = request.form['status']
-		print(f'Updating post`s id = {id} status to {new_status}')
-		resp = db.update_task_status(id, new_status)
-		print(resp)
-		if 'file' in request.files:
-			files_arr = request.files.getlist("file")
-			resp = db.update_task_files(id, files_arr)
-			print(f"Updating task {id} files: {resp}")
-			for file in files_arr:
-				resp = file_utils.upload_file(file)
-				print(f"Upload {file.filename}: {resp}")
+	task = db.get_task_by_id(id)
 
-		if not resp['success']:
-			flash("Ошибка при обновлении статуса")
-		else:
-			return redirect(url_for("main"))
+	if request.method == "POST":
+		new_status = db.convert_task_status(request.form['status'])
+		old_status = task[3]
+		if new_status != old_status:
+			resp = db.update_task_status(id, new_status)
+			print(f'Updating post`s id = {id} status to {new_status}: {resp["status"]}')
+
+		new_deadline = request.form['deadline']
+		old_deadline = task[4]
+		if len(new_deadline) > 1 and new_deadline != old_deadline:
+			resp = db.update_task_deadline(id, new_deadline)
+			print(f'Updating post`s id = {id} deadline to {new_deadline}: {resp["status"]}')
+
+		if 'file' in request.files:
+			files_arr = file_utils.preprocess_files(request.files.getlist("file"))
+			if len(files_arr) != 0:
+				file_utils.upload_files(files_arr)
+				filenames = ";".join([f.filename for f in files_arr])
+				resp = db.update_task_files(id, filenames)
+				print(f"Updating task files: {resp['status']}")
+		return redirect(url_for("main"))
 
 	print(f'Redirecting to task {id}')
 	files = db.get_task_files(id)
-	print(files)
-	task = db.get_task_by_id(id)
 	author = db.get_user_by_id(task["author_id"])
 	return render_template("task-page.html", task=task, author=author,
 												files=files, main_page_url=request.referrer)

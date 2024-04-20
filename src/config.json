@@ -1,5 +1,6 @@
 {
 	"DATABASE": "src/data.sqlite",
 	"UPLOADED_FILES_DEST": "storage",
-	"ALLOWED_EXTENSIONS": ["txt", "pdf", "png", "jpg", "jpeg", "gif"]
+	"ALLOWED_EXTENSIONS": ["txt", "pdf", "png", "jpg", "jpeg", "gif"],
+	"SECRET_KEY": "dfdsPKC*9ysa198dJSc9S8&S*Dnkljsd(S*(DLKJPS{_+S(D()&ISDljmk2wlskd-!"
 }

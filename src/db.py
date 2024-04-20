@@ -8,6 +8,16 @@ DONE_STATUS = 'Выполнено'
 ALL_TASKS = 'Все'
 
 
+""" Перевод численного статуса в буквенный  """
+def convert_task_status(status: str) -> str:
+	if status == "0": 
+		return IN_PROGRESS_STATUS
+	elif status == "1":
+		return DONE_STATUS
+	else: 
+		return ALL_TASKS
+
+
 def get_db():
 	if "db" not in g:
 			g.db = sqlite3.connect(
@@ -28,9 +38,9 @@ def delete_user(id):
 	try:
 		db.execute("DELETE FROM users WHERE id = ?;", (id,))
 		db.commit()
-		return {'success': True}
+		return {'status': 'success'}
 	except db.IntegrityError as e:
-		return {'success': False, 'error': e}
+		return {'status': e}
 
 
 def delete_task(id):
@@ -38,9 +48,9 @@ def delete_task(id):
 	try:
 		db.execute("DELETE FROM tasks WHERE id = ?;", (id,))
 		db.commit()
-		return {'success': True}
 	except db.IntegrityError as e:
-		return {'success': False, 'error': e}
+		return {'status': e}
+	return {'status': 'success'}
 
 
 def get_user_by_name(username):
@@ -85,11 +95,11 @@ def get_user_tasks(user_id):
 		).fetchall()
 
 
-def get_all_users():
+def get_all_users(current_user_id):
 	db = get_db()
 	return db.execute(
 			"SELECT id, first_name, second_name, surname, username, password, is_admin"
-			" FROM users;"
+			" FROM users WHERE id != ?;", (current_user_id,)
 		).fetchall()
 
 
@@ -98,34 +108,43 @@ def get_task_files(id):
 	files_string = db.execute(
 			"SELECT files FROM tasks WHERE id = ?;", (id,)
 		).fetchone()
-	files = [file for file in files_string["files"].split(";") if file != ""]
-	return files
+	return [file for file in files_string["files"].split(";") if file != ""]
 
 
-def update_task_files(id, new_files):
+def update_task_files(id, new_filenames):
 	db = get_db()
 	old_files = get_task_files(id)
-	filenames = ";".join(old_files+[file.filename for file in new_files])
+	if len(old_files) == 1:
+		filenames = new_filenames
+	else: 
+		filenames = ";".join(old_files) + ";" + new_filenames
+	print(f"Updating task {id} files to {filenames}")
 	try:
 		db.execute("UPDATE tasks SET files = ? WHERE id = ?;", (filenames, id))
 		db.commit()
 	except db.IntegrityError as e:
-		return {'success': False, 'error': e}
-	return {'success': True}
+		return {'status': e}
+	return {'status': 'success'}
 
 
 def update_task_status(id, status):
 	db = get_db()
-	if status == "1":
-		status = DONE_STATUS
-	else:
-		status = IN_PROGRESS_STATUS
 	try:
 		db.execute("UPDATE tasks SET current_status = ? WHERE id = ?;", (status, id))
 		db.commit()
 	except db.IntegrityError as e:
-		return {'success': False, 'error': e}
-	return {'success': True}
+		return {'status': e}
+	return {'status': 'success'}
+
+
+def update_task_deadline(id, deadline):
+	db = get_db()
+	try:
+		db.execute("UPDATE tasks SET deadline = ? WHERE id = ?;", (deadline, id))
+		db.commit()
+	except db.IntegrityError as e:
+		return {'status': e}
+	return {'status': 'success'}
 
 
 def add_new_user(fstn, secn, surn, login, psw, is_admin):
@@ -156,12 +175,11 @@ def add_new_user(fstn, secn, surn, login, psw, is_admin):
 					error = f"Имя пользователя '{login}' уже занято"
 			
 	if not error is None:
-		return {'success': False,
-					 'error': error}
-	return {'success': True}
+		return {'status': error}
+	return {'status': 'success'}
 
 
-def add_new_task(author_id, recipient, title, body, status, filenames=";"):
+def add_new_task(author_id, recipient, title, body, status, deadline=" ", filenames=";"):
 	db = get_db()
 	error = None
 	missing = {author_id: 'автора',
@@ -179,39 +197,36 @@ def add_new_task(author_id, recipient, title, body, status, filenames=";"):
 			try:
 					db.execute(
 							"INSERT INTO tasks"
-							"(author_id, recipient, files, title, body, current_status)"
-							"VALUES (?, ?, ?, ?, ?, ?)",
-							(author_id, recipient, filenames, title, body, status)
+							"(author_id, recipient, files, title, body, current_status, deadline)"
+							"VALUES (?, ?, ?, ?, ?, ?, ?)",
+							(author_id, recipient, filenames, title, body, status, deadline)
 						)
 					db.commit()
 			except db.IntegrityError:
 					error = f"Данная задача уже назначена"
 			
 	if not error is None:
-		return {'success': False,
-					 'error': error}
-	return {'success': True}
+		return {'status': error}
+	return {'status': 'success'}
 
 
 def add_default_tasks():
-	tasks = [(11, 2, 'task1', 'Lorem Ipsum is simply dummy text of the', IN_PROGRESS_STATUS),
-					(11, 2, 'task2', "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard ", IN_PROGRESS_STATUS),
-					(12, 3, 'task3', "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry.", DONE_STATUS)]
+	tasks = [(1, 2, 'Задача 1', 'Описание в приложенном файле', IN_PROGRESS_STATUS, "До 7.08.2024"),
+					(1, 2, 'Задача 2', "Описание в приложенном файле", IN_PROGRESS_STATUS, "До 13.05.2025")]
 	for task in tasks:
 		resp = add_new_task(*task)
-		if resp['success']:
-			print(f'Added task {task[1]}')
+		if resp['status'] == "success":
+			print(f"Added task '{task[2]}'")
 		else:
-			print(f"Error while adding task {task[1]}: {resp['error']}")
+			print(f"Error while adding task {task[1]}: {resp['status']}")
 
 
 def add_default_users():
-	users = [('admin', 'admin', 'admin', 'admin', 'admin', True),
-					('user1', 'user1', 'user1', 'user1', 'user1', False),
-					('user2', 'user2', 'user2', 'user2', 'user2', False)]
+	users = [('Perviy Med Pavlova', '-', '-', 'PerviyMedPavlova', 'PerviyMedPavlova', True),
+					('Litera V', '-', '-', 'LiteraV', 'LiteraV', False)]
 	for user in users:
 		resp = add_new_user(*user)
-		if resp['success']:
+		if resp['status'] == "success":
 			print(f"Added new account to database with login '{user[-3]}'")
 		else:
 			print(f"Error while adding default admin account: {resp['error']}")
@@ -250,7 +265,7 @@ def init_db_command(du, dt):
 @click.option("--isadm", required=True, type=bool)
 def add_user_command(fstn, secn, surn, login, psw, isadm):
 	resp = add_new_user(fstn, secn, surn, login, psw, isadm)
-	if resp['success'] == True:
+	if resp['status'] == "success":
 		click.echo(f"Added new account to database with login '{login}'")
 	else:
 		click.echo(resp['error'])

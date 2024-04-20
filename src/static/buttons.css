@@ -24,12 +24,12 @@
 }
 
 .button-main-login {
-	min-width: 300px;
+	min-width: 200px;
 	padding: 8px;
 	display: flex;
 	justify-content: center;
 	align-content: center;
-	margin: 40px 25px 0px 25px;
+	margin: 40px 55px 0px 55px;
 	font-size: 20px;
 }
 
@@ -148,6 +148,11 @@
 
 .lower-nav:hover {
 	text-decoration: underline;
+}
+
+.nav-logo {
+	width: 45px;
+	height: 45px;
 }
 
 #add-task {

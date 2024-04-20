@@ -7,8 +7,8 @@
 				<div class="line-block">
 					<div>
 						<h2>{{ task['title'] }}</h2>
-						<p class="task-info">Назначено {{ task['created'].strftime('%Y-%m-%d') }}
-							 {{ author['first_name'] }} {{ author['second_name'] }} {{ author['surname'] }}</p>
+						<p class="task-info">Назначено {{ task['created'].strftime('%d.%m.%Y %H:%M:%S') }}
+							 {{ author['first_name'] | whitespaces }} {{ author['second_name'] | whitespaces}} {{ author['surname'] | whitespaces}}</p>
 					</div>
 					<div class="icon-close">
 						<a href="{{ main_page_url }}" class="icon-close-cross" onclick="this.form.submit()">+</a>
@@ -30,13 +30,20 @@
 
 				<form enctype="multipart/form-data" action="" method="post">
 					<div class="line-block" id="task-page-buttons">
+						<div>
+							<label id="task-page-file-upload" for="file-upload" class="button">Добавить файлы</label>
+							<input type="file" class="file-upload" id="file-upload" name="file" multiple="multiple"/>
+						</div>
 						<select name="status" id="status">
 							<option value="0" selected>В процессе</option>
 							<option value="1">Выполнено</option>
 						</select>
-						<div>
-							<label id="task-page-file-upload" for="file-upload" class="button">Добавить файлы</label>
-							<input type="file" class="file-upload" id="file-upload" name="file" multiple="multiple"/>
+						<div id="deadline-block">
+							{% if task['deadline'] is defined and task['deadline']|length > 1 %}
+								<input id="deadline" type="text" placeholder="{{ task['deadline'] }}" name="deadline" id="deadline"/>
+							{% else %}
+								<input id="deadline" type="text" placeholder="Введите сроки выполнения" name="deadline" id="deadline"/>
+							{% endif %}
 						</div>
 					</div>
 					<input class="form-button" id="task-update-submit" type="submit" value="Готово" />

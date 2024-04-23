@@ -2,7 +2,8 @@ from flask import url_for, render_template, redirect, flash, abort
 from flask import Blueprint, g, session, request
 from werkzeug.security import check_password_hash
 import functools
-from .db import *
+import logging
+from db import *
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -54,14 +55,21 @@ def login():
 				error = 'Неверный пароль'
 
 		if error is None:
-				print('Logged in')
+				logfile = logging.getLogger('file')
+				logconsole = logging.getLogger('console')
+				logfile.debug(f"User {username} logged in")
+				logconsole.debug(f"User {username} logged in")
+
 				session.clear()
 				session['user_id'] = user['id']
 				if user['is_admin'] == True:
 					session['is_admin'] = True
 				return redirect(url_for('main'))
 		
-		print(f'ERROR: {error}')
+		logfile = logging.getLogger('file')
+		logconsole = logging.getLogger('console')
+		logfile.debug(f"Error while log in procedure: {error}")
+		logconsole.debug(f"Error while log in procedure: {error}")
 		flash(error)
 
 	return render_template('login.html')
@@ -69,5 +77,9 @@ def login():
 
 @bp.route("/logout")
 def logout():
-    session.clear()
-    return redirect(url_for("index"))
+	session.clear()
+	logfile = logging.getLogger('file')
+	logconsole = logging.getLogger('console')
+	logfile.debug("User logged out")
+	logconsole.debug("User logged out")
+	return redirect(url_for("index"))

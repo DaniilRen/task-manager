@@ -20,7 +20,7 @@
 				{% if files is defined and files|length > 0 %}
 					{% for file in files %}
 						<a 
-							href="http://127.0.0.1:5000/download/{{ file }}"
+							href="{{ url_for('static', filename='storage/'+file) }}"
 							class="file-holder"
 							download><ion-icon name ="document-outline"></ion-icon>
 							{{ file }}{% if file != files[-1] %}, {% endif %}

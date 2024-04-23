@@ -1,5 +1,5 @@
 from flask import render_template, g, Blueprint, request, url_for, redirect, flash, session, current_app, send_from_directory, abort
-from . import auth, db, file_utils
+import auth, db, file_utils
 import os
 
 bp = Blueprint('manager', __name__)
@@ -36,10 +36,10 @@ def main():
 
 	if g.is_admin:
 		users = db.get_all_users(g.user)
-		print('Redirecting to admin page')
+		print('--> Redirecting to admin page')
 		return render_template("admin/index.html", users=users)
 	
-	print('Redirecting to user page')
+	print('--> Redirecting to user page')
 	return render_template("user/index.html", tasks=tasks, filter_template=template)
 
 
@@ -48,7 +48,7 @@ def main():
 @auth.admin_required
 def add_user():
 	if request.method == "POST":
-		print(f'Adding new user: {request.form}...')
+		print(f'--> Adding new user: {request.form}...')
 		if request.form["is_admin"] == 'Да':
 			is_admin = True
 		else:
@@ -70,7 +70,7 @@ def add_user():
 @auth.admin_required
 def add_task():
 	if request.method == "POST":
-		print(f'Adding new task: {request.form}...')
+		print(f'--> Adding new task: {request.form}...')
 
 		if 'file' in request.files:
 			files_arr = file_utils.preprocess_files(request.files.getlist("file"))
@@ -118,13 +118,13 @@ def task_page(id):
 		old_status = task[3]
 		if new_status != old_status:
 			resp = db.update_task_status(id, new_status)
-			print(f'Updating post`s id = {id} status to {new_status}: {resp["status"]}')
+			print(f'--> Updating post`s id = {id} status to {new_status}: {resp["status"]}')
 
 		new_deadline = request.form['deadline']
 		old_deadline = task[4]
 		if len(new_deadline) > 1 and new_deadline != old_deadline:
 			resp = db.update_task_deadline(id, new_deadline)
-			print(f'Updating post`s id = {id} deadline to {new_deadline}: {resp["status"]}')
+			print(f'--> Updating post`s id = {id} deadline to {new_deadline}: {resp["status"]}')
 
 		if 'file' in request.files:
 			files_arr = file_utils.preprocess_files(request.files.getlist("file"))
@@ -132,10 +132,10 @@ def task_page(id):
 				file_utils.upload_files(files_arr)
 				filenames = ";".join([f.filename for f in files_arr])
 				resp = db.update_task_files(id, filenames)
-				print(f"Updating task files: {resp['status']}")
+				print(f"--> Updating task files: {resp['status']}")
 		return redirect(url_for("main"))
 
-	print(f'Redirecting to task {id}')
+	print(f'--> Redirecting to task {id}')
 	files = db.get_task_files(id)
 	author = db.get_user_by_id(task["author_id"])
 	return render_template("task-page.html", task=task, author=author,
@@ -146,7 +146,7 @@ def task_page(id):
 @auth.login_required
 @auth.admin_required
 def delete_user(id):
-	print(f'Deleting user with id = {id}')
+	print(f'--> Deleting user with id = {id}')
 	print(db.delete_user(id))
 	return redirect(url_for("main"))
 
@@ -155,12 +155,12 @@ def delete_user(id):
 @auth.login_required
 @auth.admin_required
 def delete_task(id):
-	print(f'Deleting task with id = {id}')
+	print(f'--> Deleting task with id = {id}')
 	print(db.delete_task(id))
 	return redirect(f"/obs-user/{session['observed_user_id']}")
 
 @bp.route('/download/<path:filename>', methods=("GET",))
 def get_file(filename):
 	storage_path = os.path.join(current_app.root_path, current_app.config['UPLOADED_FILES_DEST'])
-	print(f"Downloading {filename}")
+	print(f"--> Downloading {filename}")
 	return send_from_directory(storage_path, filename)

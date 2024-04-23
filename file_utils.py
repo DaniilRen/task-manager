@@ -54,4 +54,4 @@ def upload_file(file):
 def upload_files(files_arr):
 	for file in files_arr:
 		resp = upload_file(file)
-		print(f"Uploading {file.filename}: {resp['status']}")
+		print(f"--> Uploading {file.filename}: {resp['status']}")

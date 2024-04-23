@@ -1,3 +1,5 @@
 flask
 requests
 Werkzeug
+pymysql
+pyyaml

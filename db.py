@@ -118,7 +118,7 @@ def update_task_files(id, new_filenames):
 		filenames = new_filenames
 	else: 
 		filenames = ";".join(old_files) + ";" + new_filenames
-	print(f"Updating task {id} files to {filenames}")
+	print(f"--> Updating task {id} files to {filenames}")
 	try:
 		db.execute("UPDATE tasks SET files = ? WHERE id = ?;", (filenames, id))
 		db.commit()
@@ -216,9 +216,9 @@ def add_default_tasks():
 	for task in tasks:
 		resp = add_new_task(*task)
 		if resp['status'] == "success":
-			print(f"Added task '{task[2]}'")
+			print(f"--> Added task '{task[2]}'")
 		else:
-			print(f"Error while adding task {task[1]}: {resp['status']}")
+			print(f"--> Error while adding task {task[1]}: {resp['status']}")
 
 
 def add_default_users():
@@ -227,9 +227,9 @@ def add_default_users():
 	for user in users:
 		resp = add_new_user(*user)
 		if resp['status'] == "success":
-			print(f"Added new account to database with login '{user[-3]}'")
+			print(f"--> Added new account to database with login '{user[-3]}'")
 		else:
-			print(f"Error while adding default admin account: {resp['error']}")
+			print(f"--> Error while adding default admin account: {resp['error']}")
 
 
 def init_db():

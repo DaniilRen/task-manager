@@ -1,0 +1,97 @@
+2024-04-24 17:22:37,250 - file - DEBUG - Application created
+2024-04-24 17:22:51,262 - file - DEBUG - Application created
+2024-04-24 17:24:37,633 - file - DEBUG - Application created
+2024-04-24 17:24:51,465 - file - DEBUG - Application created
+2024-04-24 17:25:10,176 - file - DEBUG - Application created
+2024-04-24 17:25:10,179 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-04-24 17:25:10,179 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-04-24 17:25:15,519 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:15] "GET / HTTP/1.1" 200 -
+2024-04-24 17:25:15,661 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:15] "GET /static/task.css HTTP/1.1" 200 -
+2024-04-24 17:25:15,663 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:15] "GET /static/login.css HTTP/1.1" 200 -
+2024-04-24 17:25:15,664 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:15] "GET /static/common.css HTTP/1.1" 200 -
+2024-04-24 17:25:15,675 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:15] "GET /static/assets/logo.png HTTP/1.1" 200 -
+2024-04-24 17:25:15,729 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:15] "GET /static/buttons.css HTTP/1.1" 200 -
+2024-04-24 17:25:16,999 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:16] "GET /auth/login HTTP/1.1" 200 -
+2024-04-24 17:25:17,216 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:17] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:17,217 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:17] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:17,217 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:17] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:17,219 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:17] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:17,260 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:17] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-04-24 17:25:19,696 - file - DEBUG - User LiteraV logged in
+2024-04-24 17:25:19,697 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:19] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2024-04-24 17:25:19,707 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:19] "GET /main HTTP/1.1" 200 -
+2024-04-24 17:25:19,847 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:19] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:19,850 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:19] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:19,851 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:19] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:19,852 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:19] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:19,862 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:19] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-04-24 17:25:19,944 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-04-24 17:25:23,790 - file - DEBUG - User LiteraV logged in
+2024-04-24 17:25:23,791 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:23] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2024-04-24 17:25:23,796 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:23] "GET /main HTTP/1.1" 200 -
+2024-04-24 17:25:23,894 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:23] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:23,895 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:23] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:23,897 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:23] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:23,897 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:23] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:23,902 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:23] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-04-24 17:25:24,140 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:24] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-04-24 17:25:26,123 - file - DEBUG - User LiteraV logged in
+2024-04-24 17:25:26,124 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:26] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2024-04-24 17:25:26,131 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:26] "GET /main HTTP/1.1" 200 -
+2024-04-24 17:25:26,223 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:26] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:26,225 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:26] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:26,226 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:26] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:26,232 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:26] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:26,249 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:26] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-04-24 17:25:26,329 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:26] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-04-24 17:25:54,969 - file - DEBUG - Application created
+2024-04-24 17:25:54,971 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-04-24 17:25:54,971 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-04-24 17:25:56,075 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:56] "GET /auth/login HTTP/1.1" 200 -
+2024-04-24 17:25:56,211 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:56] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:56,213 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:56] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:56,218 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:56] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:56,227 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:56] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:56,232 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:56] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-04-24 17:25:57,521 - file - DEBUG - User LiteraV logged in
+2024-04-24 17:25:57,523 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:57] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2024-04-24 17:25:57,533 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:57] "GET /main HTTP/1.1" 200 -
+2024-04-24 17:25:57,639 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:57] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:57,640 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:57] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:57,641 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:57] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:57,642 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:57] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:57,698 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:57] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-04-24 17:25:57,839 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:57] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-04-24 17:25:59,542 - file - DEBUG - Error while log in procedure: Неверный пароль
+2024-04-24 17:25:59,543 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:59] "POST /auth/login HTTP/1.1" 200 -
+2024-04-24 17:25:59,619 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:59] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:59,620 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:59] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:59,621 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:59] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:59,623 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:59] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-04-24 17:25:59,624 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:59] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-04-24 17:25:59,660 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:25:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-04-24 17:26:02,651 - file - DEBUG - User PerviyMedPavlova logged in
+2024-04-24 17:26:02,652 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:02] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2024-04-24 17:26:02,660 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:02] "GET /main HTTP/1.1" 200 -
+2024-04-24 17:26:02,716 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:02] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-04-24 17:26:02,716 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:02] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-04-24 17:26:02,717 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:02] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-04-24 17:26:02,730 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:02] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-04-24 17:26:02,765 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:02] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-04-24 17:26:02,863 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:02] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-04-24 17:26:04,633 - file - DEBUG - Error while log in procedure: Неверный пароль
+2024-04-24 17:26:04,635 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:04] "POST /auth/login HTTP/1.1" 200 -
+2024-04-24 17:26:04,729 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:04] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-04-24 17:26:04,731 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:04] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-04-24 17:26:04,734 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:04] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-04-24 17:26:04,734 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:04] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-04-24 17:26:04,745 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:04] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-04-24 17:26:04,775 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:26:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-04-24 17:28:58,739 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:28:58] "GET / HTTP/1.1" 200 -
+2024-04-24 17:28:58,761 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:28:58] "GET /static/common.css HTTP/1.1" 200 -
+2024-04-24 17:28:58,763 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:28:58] "GET /static/buttons.css HTTP/1.1" 200 -
+2024-04-24 17:28:58,764 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:28:58] "GET /static/task.css HTTP/1.1" 200 -
+2024-04-24 17:28:58,797 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:28:58] "GET /static/login.css HTTP/1.1" 200 -
+2024-04-24 17:28:58,869 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2024 17:28:58] "GET /static/assets/logo.png HTTP/1.1" 200 -

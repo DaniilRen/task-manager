@@ -1,5 +1,5 @@
 from flask import render_template, g, Blueprint, request, url_for, redirect, flash, session, current_app, send_from_directory, abort
-import auth, db, file_utils
+from . import auth, db, file_utils
 import os
 
 bp = Blueprint('manager', __name__)

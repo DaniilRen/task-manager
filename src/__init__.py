@@ -1,5 +1,5 @@
 from flask import Flask
-import manager, auth, db, config_module
+from . import manager, auth, db, config_module
 
 
 def create_app():
@@ -13,7 +13,7 @@ def create_app():
 	app.add_url_rule("/main", endpoint="main")
 
 	import logging, logging.config, yaml # type: ignore
-	logging.config.dictConfig(yaml.safe_load(open('logging.conf')))
+	logging.config.dictConfig(yaml.safe_load(open('src/logging.conf')))
 	logfile = logging.getLogger('file')
 	logconsole = logging.getLogger('console')
 	logfile.debug("Application created")

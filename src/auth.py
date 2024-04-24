@@ -1,9 +1,9 @@
 from flask import url_for, render_template, redirect, flash, abort
 from flask import Blueprint, g, session, request
-from werkzeug.security import check_password_hash
+import bcrypt
 import functools
 import logging
-from db import *
+from .db import *
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -48,10 +48,11 @@ def login():
 		password = request.form['password']
 		error = None
 		user = get_user_by_name(username)
+		print(password.encode(), user['password'])
 
 		if user is None:
 				error = 'Неверное имя пользователя'
-		elif not check_password_hash(user['password'], password):
+		elif not bcrypt.hashpw(password.encode(), user['password']) == user['password']:
 				error = 'Неверный пароль'
 
 		if error is None:

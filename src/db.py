@@ -1,7 +1,7 @@
 from flask import g, current_app
 import sqlite3
 import click
-from werkzeug.security import generate_password_hash
+import bcrypt
 
 IN_PROGRESS_STATUS = 'В процессе'
 DONE_STATUS = 'Выполнено'
@@ -163,7 +163,7 @@ def add_new_user(fstn, secn, surn, login, psw, is_admin):
 
 	if error is None:
 			try:
-					hashed_psw = generate_password_hash(psw)
+					hashed_psw = bcrypt.hashpw(psw.encode(), bcrypt.gensalt())
 					db.execute(
 							"INSERT INTO users"
 							"(first_name, second_name, surname, username, password, is_admin)"

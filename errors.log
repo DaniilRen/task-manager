@@ -1,0 +1,45 @@
+2024-08-15 18:42:56,933 - file - DEBUG - Application created
+2024-08-15 18:42:56,941 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-08-15 18:42:56,941 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-08-15 18:42:59,098 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:42:59] "GET / HTTP/1.1" 200 -
+2024-08-15 18:42:59,176 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:42:59] "GET /static/common.css HTTP/1.1" 200 -
+2024-08-15 18:42:59,216 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:42:59] "GET /static/buttons.css HTTP/1.1" 200 -
+2024-08-15 18:42:59,219 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:42:59] "GET /static/login.css HTTP/1.1" 200 -
+2024-08-15 18:42:59,222 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:42:59] "GET /static/task.css HTTP/1.1" 200 -
+2024-08-15 18:42:59,230 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:42:59] "GET /static/assets/logo.png HTTP/1.1" 200 -
+2024-08-15 18:43:00,536 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:00] "GET /auth/login HTTP/1.1" 200 -
+2024-08-15 18:43:00,594 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:00] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:00,625 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:00] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:00,626 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:00] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:00,626 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:00] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:00,651 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:00] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-08-15 18:43:01,697 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:01] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-08-15 18:43:16,584 - file - DEBUG - Error while log in procedure: Неверное имя пользователя
+2024-08-15 18:43:16,585 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:16] "POST /auth/login HTTP/1.1" 200 -
+2024-08-15 18:43:16,605 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:16] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:16,615 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:16] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:16,616 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:16] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:16,616 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:16] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:16,617 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:16] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-08-15 18:43:18,839 - file - DEBUG - Error while log in procedure: Неверное имя пользователя
+2024-08-15 18:43:18,839 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:18] "POST /auth/login HTTP/1.1" 200 -
+2024-08-15 18:43:18,865 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:18] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:18,867 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:18] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:18,869 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:18] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:18,870 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:18] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:18,871 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:18] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-08-15 18:43:46,882 - file - DEBUG - User PerviyMedPavlova logged in
+2024-08-15 18:43:46,883 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:46] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2024-08-15 18:43:46,890 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:46] "GET /main HTTP/1.1" 200 -
+2024-08-15 18:43:46,935 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:46] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:46,955 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:46] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:46,955 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:46] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:46,956 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:46] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:46,979 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:46] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -
+2024-08-15 18:43:48,294 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:48] "GET /obs-user/2 HTTP/1.1" 200 -
+2024-08-15 18:43:48,326 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:48] "[36mGET /static/common.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:48,329 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:48] "[36mGET /static/buttons.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:48,330 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:48] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:48,330 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:48] "[36mGET /static/task.css HTTP/1.1[0m" 304 -
+2024-08-15 18:43:48,334 - werkzeug - INFO - 127.0.0.1 - - [15/Aug/2024 18:43:48] "[36mGET /static/assets/logo.png HTTP/1.1[0m" 304 -

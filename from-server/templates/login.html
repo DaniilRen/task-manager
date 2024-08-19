@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Вход в систему {% endblock %}
+
+{% block content %}
+<div class="overlay">
+	<div class="content-panel login-content">
+		<div class="login-title">
+			<h1>Вход в систему</h1>
+		</div>
+		{% for message in get_flashed_messages() %}
+		<div class="flash">{{ message }}</div>
+		{% endfor %}
+		<form id="login-form" action="", method="post">
+			<div class="form-field">
+				<input type="text" placeholder="Имя пользователя" name="username" id="username" required />
+			</div>
+			<div class="form-field">
+				<input type="password" placeholder="Пароль" name="password" id="password" required />
+			</div>
+			<div class="form-button-block">
+				<input class="form-button" type="submit" value="Войти" />
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+	<div class="wrapper">
+		<div class="admin-tools">
+			<div class="line-block">
+				<h2>{% block title %}Список пользователей{% endblock %}</h2>
+			</div>
+			<a href="{{ url_for('manager.add_user') }}" class="button">Добавить пользователя</a>
+		</div>
+
+		{% if users is defined and users|length > 0 %}
+			{% for user in users %}
+				<div class="panel user-panel">
+					<div class="user-info">
+						<h3>{{ user['second_name'] | whitespaces }} {{ user['first_name'] | whitespaces }} {{ user['surname'] | whitespaces }}</h3>
+						<p>id: {{ user['id'] }}</p>
+						<p>login: {{ user['username'] }}</p>
+						<p>админ: {% if user['is_admin'] == True %} да {% else %} нет {% endif %}</p>
+					</div>
+
+					<div class="user-panel-buttons">
+						<a 
+							class="button" id="see-user-tasks-button"
+							href="/obs-user/{{ user['id'] }}">
+							Посмотреть задачи
+						</a>
+						<a 
+							class="button delete"
+							id="delete-user-button"
+							href="/delete-user/{{ user['id'] }}">
+							Удалить пользователя
+						</a>
+					</div>
+				</div>
+				{% if not loop.last %}
+					<hr>
+				{% endif %}
+			{% endfor %}
+		{% else %}
+			<p id="info">Нет активных пользователей</p>
+		{% endif %}
+	</div>
+{% endblock %}
+

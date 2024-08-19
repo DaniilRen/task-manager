@@ -1,3 +1,7 @@
 venv/
 .idea/
 __pycache__/
+*.log
+app_config.json
+*.sqlite
+from-server/

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="wrapper">
+		<div class="line-block">
+			<h1>{% block title %}Назначение задачи{% endblock %}</h1>
+			<div class="icon-close">
+				<a href="{{ main_page_url }}" class="icon-close-cross" onclick="this.form.submit()">+</a>
+			</div>
+		</div>
+
+		{% for message in get_flashed_messages() %}
+		<div class="flash">{{ message }}</div>
+		{% endfor %}
+
+		<form enctype="multipart/form-data" action="" method="post">
+			<div class="form-field">
+				<input type="text" placeholder="Заголовок" name="title" id="title" required />
+			</div>
+			<div class="form-field">
+				<input type="text" placeholder="Описание" name="body" id="body" required />
+			</div>
+			<div class="line-block">
+				<div>
+					<label for="file-upload" class="button">Добавить файлы</label>
+					<input type="file" class="file-upload" id="file-upload" name="file" multiple="multiple"/>
+				</div>
+				{% if files is defined and files|length > 0 %}
+					<p>{% for file in files %} {{ file }} {% endfor %}</p>
+				{% endif %}
+			</div>
+
+			<div class="form-button-block">
+				<input class="form-button" type="submit" value="Назначить" />
+			</div>
+		</form>
+	</div>
+{% endblock %}
+

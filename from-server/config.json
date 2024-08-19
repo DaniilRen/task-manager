@@ -1,0 +1,6 @@
+{
+	"DATABASE": "/home/a0898548/domains/litera-v.ru/public_html/data.sqlite",
+	"UPLOADED_FILES_DEST": "/home/a0898548/domains/litera-v.ru/public_html/static/storage",
+	"ALLOWED_EXTENSIONS": ["txt", "pdf", "png", "jpg", "jpeg", "gif"],
+	"SECRET_KEY": "dfdsPKC*9ysa198dJSc9S8&S*Dnkljsd(S*(DLKJPS{_+S(D()&ISDljmk2wlskd-!"
+}

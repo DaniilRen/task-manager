@@ -1,7 +1,7 @@
 import os, sys
 
 user_name = "" # place here user name from host
-domen = "" # place here website domen
+domen = "" # place here website domain
 
 activate_this = f"/home/{user_name}/python/bin/activate_this.py"
 with open(activate_this) as f:

@@ -1,3 +1,51 @@
 venv/
 .idea/
 __pycache__/
+
+# IntelliJ IDEA
+.idea/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Maven
+target/
+
+# Gradle
+build/
+.gradle/
+
+# Compiled class files
+syntax: glob
+*.class
+
+# Logs
+*.log
+log/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IntelliJ IDEA Code Style Configuration
+*.iml
+*.ipr
+*.iws
+
+# Editor-specific temporary files
+*~
+*.swp
+*.bak
+*.tmp
+*.swo
+*.~lock.*
+
+# Databases
+*.db.*
+
+# Python
+__pycache__
+
+client/downloads

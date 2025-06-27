@@ -10,9 +10,6 @@ __pycache__/
 .project
 .settings/
 
-# Maven
-target/
-
 # Gradle
 build/
 .gradle/

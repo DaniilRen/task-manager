@@ -9,7 +9,7 @@ task-manager
 ## Release Date
 27.03.2024
 
-## Summarded1ace9e3f37558fc0b99e5de50fb7ebfcb30f7y
+## Summary
 The software is provided as a standard version with minimal modifications and is designed to operate on any operating system.
 
 ---

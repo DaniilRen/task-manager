@@ -155,7 +155,7 @@ class AdminWindow(QWidget):
 			self.show_tasks_button.setEnabled(True)
 		
 	def show_tasks(self):
-		self.user_window = UserWindow(self.user['id'])
+		self.user_window = UserWindow(self.user['id'], is_admin=True)
 		self.user_window.show()
 				
 	def fill_user_data(self):

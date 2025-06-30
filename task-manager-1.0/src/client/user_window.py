@@ -80,7 +80,7 @@ class LoginWindow(QWidget):
 
 class UserWindow(QWidget):
 	
-	def __init__(self, user_id=None):
+	def __init__(self, user_id=None, is_admin: bool=False):
 		super().__init__()
 		assert user_id or credentials
 		self.downloads_folder = "downloads"
@@ -91,6 +91,7 @@ class UserWindow(QWidget):
 		self.setFixedSize(640, 480)  # Non-resizable window
 		self.user_id = user_id
 		assert self.user_id
+		self.is_admin = is_admin
 		self.setup_ui()
 		self.get_tasks_for_user()
 		
@@ -134,9 +135,13 @@ class UserWindow(QWidget):
 		self.button_add.clicked.connect(self.add_task)
 		left_layout.addWidget(self.button_add)
 		
-		self.button_delete = QPushButton("Удалить задачу")
-		self.button_delete.clicked.connect(self.delete_task)
-		left_layout.addWidget(self.button_delete)
+		""" 
+		Added by company request
+		"""
+		if self.is_admin:
+			self.button_delete = QPushButton("Удалить задачу")
+			self.button_delete.clicked.connect(self.delete_task)
+			left_layout.addWidget(self.button_delete)
 		
 		main_layout.addLayout(left_layout)
 		
@@ -168,10 +173,14 @@ class UserWindow(QWidget):
 		self.button_add_file.clicked.connect(self.add_blob)
 		right_layout.addWidget(self.button_add_file)
 		
-		self.button_delete_file = QPushButton("Удалить файл")
-		self.button_delete_file.setEnabled(False)
-		self.button_delete_file.clicked.connect(self.delete_blob)
-		right_layout.addWidget(self.button_delete_file)
+		""" 
+		Added by company request
+		"""
+		if self.is_admin:
+			self.button_delete_file = QPushButton("Удалить файл")
+			self.button_delete_file.setEnabled(False)
+			self.button_delete_file.clicked.connect(self.delete_blob)
+			right_layout.addWidget(self.button_delete_file)
 
 		main_layout.addLayout(right_layout)
 		
@@ -194,7 +203,13 @@ class UserWindow(QWidget):
 			
 	def category_index_changed(self):
 		self.button_add_file.setEnabled(False)
-		self.button_delete_file.setEnabled(False)
+
+		""" 
+		Added by company request
+		"""
+		if self.is_admin:
+			self.button_delete_file.setEnabled(False)
+
 		self.task_list_widget.clear()
 		self.task_list_widget.addItems([task.name for task in self.tasks if task.task_class == self.task_categories_cbox.currentText()])
 		self.blob_list_widget.clear()
@@ -224,7 +239,12 @@ class UserWindow(QWidget):
 				with open(output_file_path, 'wb') as file:
 					file.write(decoded_data)
 			open_file(output_file_path)
-			self.button_delete_file.setEnabled(True)
+
+			""" 
+			Added by company request
+			"""
+			if self.is_admin:
+				self.button_delete_file.setEnabled(True)
 		
 	def get_current_task_status_from_ui(self):
 		enum_mapping = {member.value[1]: member for member in TaskStatus}
@@ -340,4 +360,8 @@ class UserWindow(QWidget):
 			}
 			send_request("delete_blob", data)
 			self.get_blobs_for_task()
-			self.button_delete_file.setEnabled(False)
+			""" 
+			Added by company request
+			"""
+			if self.is_admin:
+				self.button_delete_file.setEnabled(False)
